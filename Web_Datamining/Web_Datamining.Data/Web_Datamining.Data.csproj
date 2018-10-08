@@ -60,15 +60,31 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ChuyenNganhRepository.cs" />
+    <Compile Include="Repositories\DiemCTHKyRepository.cs" />
+    <Compile Include="Repositories\DiemHocKyRepository.cs" />
+    <Compile Include="Repositories\DiemXetTuyenRepository.cs" />
+    <Compile Include="Repositories\DSNguyenVongRepository.cs" />
+    <Compile Include="Repositories\HeDaoTaoRepository.cs" />
+    <Compile Include="Repositories\HocKyRepository.cs" />
+    <Compile Include="Repositories\HoSoXetTuyenRepository.cs" />
+    <Compile Include="Repositories\HuyenRepository.cs" />
+    <Compile Include="Repositories\KhoaHocRepository.cs" />
+    <Compile Include="Repositories\KhoaRepository.cs" />
+    <Compile Include="Repositories\LopRepository.cs" />
+    <Compile Include="Repositories\MonHocRepository.cs" />
+    <Compile Include="Repositories\NganhTheoBoRepository.cs" />
+    <Compile Include="Repositories\SinhVienRepository.cs" />
+    <Compile Include="Repositories\TinhRepository.cs" />
+    <Compile Include="Repositories\ToHopMonRepository.cs" />
+    <Compile Include="Repositories\TruongTHPTRepository.cs" />
     <Compile Include="WebDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Web_Datamining.Model\Web_Datamining.Model.csproj">
       <Project>{52c0e80f-bbb6-47c6-be1c-542c6100c2ab}</Project>

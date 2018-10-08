@@ -1,8 +1,7 @@
 namespace Web_Datamining.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitDatabase : DbMigration
     {
         public override void Up()
@@ -10,34 +9,34 @@ namespace Web_Datamining.Data.Migrations
             CreateTable(
                 "dbo.ChuyenNganh",
                 c => new
-                    {
-                        MaChuyenNganh = c.String(nullable: false, maxLength: 10),
-                        TenChuyenNganh = c.String(maxLength: 50),
-                        MaKhoa = c.String(nullable: false, maxLength: 10),
-                    })
+                {
+                    MaChuyenNganh = c.String(nullable: false, maxLength: 10),
+                    TenChuyenNganh = c.String(maxLength: 50),
+                    MaKhoa = c.String(nullable: false, maxLength: 10),
+                })
                 .PrimaryKey(t => t.MaChuyenNganh)
                 .ForeignKey("dbo.Khoa", t => t.MaKhoa, cascadeDelete: true)
                 .Index(t => t.MaKhoa);
-            
+
             CreateTable(
                 "dbo.Khoa",
                 c => new
-                    {
-                        MaKhoa = c.String(nullable: false, maxLength: 10),
-                        TenKhoa = c.String(maxLength: 50),
-                    })
+                {
+                    MaKhoa = c.String(nullable: false, maxLength: 10),
+                    TenKhoa = c.String(maxLength: 50),
+                })
                 .PrimaryKey(t => t.MaKhoa);
-            
+
             CreateTable(
                 "dbo.Lop",
                 c => new
-                    {
-                        ID_Lop = c.Int(nullable: false),
-                        MaChuyenNganh = c.String(nullable: false, maxLength: 10),
-                        MaHeDaoTao = c.String(nullable: false, maxLength: 10),
-                        MaKhoaHoc = c.Int(nullable: false),
-                        TenLop = c.String(maxLength: 10),
-                    })
+                {
+                    ID_Lop = c.Int(nullable: false),
+                    MaChuyenNganh = c.String(nullable: false, maxLength: 10),
+                    MaHeDaoTao = c.String(nullable: false, maxLength: 10),
+                    MaKhoaHoc = c.Int(nullable: false),
+                    TenLop = c.String(maxLength: 10),
+                })
                 .PrimaryKey(t => t.ID_Lop)
                 .ForeignKey("dbo.ChuyenNganh", t => t.MaChuyenNganh, cascadeDelete: true)
                 .ForeignKey("dbo.HeDaoTao", t => t.MaHeDaoTao, cascadeDelete: true)
@@ -45,151 +44,151 @@ namespace Web_Datamining.Data.Migrations
                 .Index(t => t.MaChuyenNganh)
                 .Index(t => t.MaHeDaoTao)
                 .Index(t => t.MaKhoaHoc);
-            
+
             CreateTable(
                 "dbo.HeDaoTao",
                 c => new
-                    {
-                        MaHeDaoTao = c.String(nullable: false, maxLength: 10),
-                        TenHeDaoTao = c.String(maxLength: 50),
-                    })
+                {
+                    MaHeDaoTao = c.String(nullable: false, maxLength: 10),
+                    TenHeDaoTao = c.String(maxLength: 50),
+                })
                 .PrimaryKey(t => t.MaHeDaoTao);
-            
+
             CreateTable(
                 "dbo.KhoaHoc",
                 c => new
-                    {
-                        MaKhoaHoc = c.Int(nullable: false),
-                        NamHoc = c.String(maxLength: 10),
-                    })
+                {
+                    MaKhoaHoc = c.Int(nullable: false),
+                    NamHoc = c.String(maxLength: 10),
+                })
                 .PrimaryKey(t => t.MaKhoaHoc);
-            
+
             CreateTable(
                 "dbo.SinhVien",
                 c => new
-                    {
-                        MSSV = c.String(nullable: false, maxLength: 15),
-                        MaHoSo = c.Int(nullable: false),
-                        CoVanHocTap = c.String(storeType: "ntext"),
-                        ID_Lop = c.Int(nullable: false),
-                    })
+                {
+                    MSSV = c.String(nullable: false, maxLength: 15),
+                    MaHoSo = c.Int(nullable: false),
+                    CoVanHocTap = c.String(storeType: "ntext"),
+                    ID_Lop = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.MSSV)
                 .ForeignKey("dbo.HoSoXetTuyen", t => t.MaHoSo, cascadeDelete: true)
                 .ForeignKey("dbo.Lop", t => t.ID_Lop, cascadeDelete: true)
                 .Index(t => t.MaHoSo)
                 .Index(t => t.ID_Lop);
-            
+
             CreateTable(
                 "dbo.DiemHocKy",
                 c => new
-                    {
-                        MSSV = c.String(nullable: false, maxLength: 15),
-                        ID_HocKi = c.Int(nullable: false),
-                        SoTCDK = c.Int(),
-                        SoTCD = c.Int(),
-                        SoTCTL = c.Int(),
-                        DiemTBTLHe4 = c.Double(),
-                    })
+                {
+                    MSSV = c.String(nullable: false, maxLength: 15),
+                    ID_HocKi = c.Int(nullable: false),
+                    SoTCDK = c.Int(),
+                    SoTCD = c.Int(),
+                    SoTCTL = c.Int(),
+                    DiemTBTLHe4 = c.Double(),
+                })
                 .PrimaryKey(t => new { t.MSSV, t.ID_HocKi })
                 .ForeignKey("dbo.HocKy", t => t.ID_HocKi, cascadeDelete: true)
                 .ForeignKey("dbo.SinhVien", t => t.MSSV, cascadeDelete: true)
                 .Index(t => t.MSSV)
                 .Index(t => t.ID_HocKi);
-            
+
             CreateTable(
                 "dbo.DiemCTHKy",
                 c => new
-                    {
-                        MaMon = c.String(nullable: false, maxLength: 10),
-                        MSSV = c.String(nullable: false, maxLength: 15),
-                        ID_HocKi = c.Int(nullable: false),
-                        DiemTH = c.Double(),
-                        DiemQT = c.Double(),
-                        DiemThi1 = c.Double(),
-                        DiemThi2 = c.Double(),
-                        TiLeDiemTH = c.Double(),
-                        TiLeDiemQT = c.Double(),
-                        TiLeDiemThi1 = c.Double(),
-                        TiLeDiemThi2 = c.Double(),
-                        DiemTKHe10 = c.Double(),
-                        DiemTKHe4 = c.Double(),
-                        DiemTKChu = c.String(maxLength: 50),
-                    })
+                {
+                    MaMon = c.String(nullable: false, maxLength: 10),
+                    MSSV = c.String(nullable: false, maxLength: 15),
+                    ID_HocKi = c.Int(nullable: false),
+                    DiemTH = c.Double(),
+                    DiemQT = c.Double(),
+                    DiemThi1 = c.Double(),
+                    DiemThi2 = c.Double(),
+                    TiLeDiemTH = c.Double(),
+                    TiLeDiemQT = c.Double(),
+                    TiLeDiemThi1 = c.Double(),
+                    TiLeDiemThi2 = c.Double(),
+                    DiemTKHe10 = c.Double(),
+                    DiemTKHe4 = c.Double(),
+                    DiemTKChu = c.String(maxLength: 50),
+                })
                 .PrimaryKey(t => new { t.MaMon, t.MSSV, t.ID_HocKi })
                 .ForeignKey("dbo.DiemHocKy", t => new { t.MSSV, t.ID_HocKi }, cascadeDelete: true)
                 .ForeignKey("dbo.MonHoc", t => t.MaMon, cascadeDelete: true)
                 .Index(t => t.MaMon)
                 .Index(t => new { t.MSSV, t.ID_HocKi });
-            
+
             CreateTable(
                 "dbo.MonHoc",
                 c => new
-                    {
-                        MaMon = c.String(nullable: false, maxLength: 10),
-                        TenMon = c.String(maxLength: 50),
-                        TichLuy = c.Boolean(),
-                        DiemDat = c.Double(),
-                    })
+                {
+                    MaMon = c.String(nullable: false, maxLength: 10),
+                    TenMon = c.String(maxLength: 50),
+                    TichLuy = c.Boolean(),
+                    DiemDat = c.Double(),
+                })
                 .PrimaryKey(t => t.MaMon);
-            
+
             CreateTable(
                 "dbo.HocKy",
                 c => new
-                    {
-                        ID_HocKi = c.Int(nullable: false),
-                        NamHoc = c.String(maxLength: 10),
-                        KyHoc = c.Int(),
-                    })
+                {
+                    ID_HocKi = c.Int(nullable: false),
+                    NamHoc = c.String(maxLength: 10),
+                    KyHoc = c.Int(),
+                })
                 .PrimaryKey(t => t.ID_HocKi);
-            
+
             CreateTable(
                 "dbo.HoSoXetTuyen",
                 c => new
-                    {
-                        MaHoSo = c.Int(nullable: false),
-                        MaTruongTHPT = c.Int(nullable: false),
-                        CMDN = c.String(maxLength: 15),
-                        NgaySinh = c.DateTime(storeType: "smalldatetime"),
-                        HoTen = c.String(maxLength: 50),
-                        GioiTinh = c.Int(),
-                        DanToc = c.String(maxLength: 30),
-                        TinhTrangTrungTuyen = c.Int(),
-                        DXT_ID = c.Int(nullable: false),
-                    })
+                {
+                    MaHoSo = c.Int(nullable: false),
+                    MaTruongTHPT = c.Int(nullable: false),
+                    CMDN = c.String(maxLength: 15),
+                    NgaySinh = c.DateTime(storeType: "smalldatetime"),
+                    HoTen = c.String(maxLength: 50),
+                    GioiTinh = c.Int(),
+                    DanToc = c.String(maxLength: 30),
+                    TinhTrangTrungTuyen = c.Int(),
+                    DXT_ID = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.MaHoSo)
                 .ForeignKey("dbo.DiemXetTuyen", t => t.DXT_ID, cascadeDelete: true)
                 .ForeignKey("dbo.TruongTHPT", t => t.MaTruongTHPT, cascadeDelete: true)
                 .Index(t => t.MaTruongTHPT)
                 .Index(t => t.DXT_ID);
-            
+
             CreateTable(
                 "dbo.DiemXetTuyen",
                 c => new
-                    {
-                        DXT_ID = c.Int(nullable: false, identity: true),
-                        DiemToan = c.Double(),
-                        DiemVan = c.Double(),
-                        DiemLy = c.Double(),
-                        DiemHoa = c.Double(),
-                        DiemSinh = c.Double(),
-                        DiemDia = c.Double(),
-                        DiemGDCD = c.Double(),
-                        DiemNN = c.Double(),
-                        HinhThucXetTuyen = c.Boolean(),
-                    })
+                {
+                    DXT_ID = c.Int(nullable: false, identity: true),
+                    DiemToan = c.Double(),
+                    DiemVan = c.Double(),
+                    DiemLy = c.Double(),
+                    DiemHoa = c.Double(),
+                    DiemSinh = c.Double(),
+                    DiemDia = c.Double(),
+                    DiemGDCD = c.Double(),
+                    DiemNN = c.Double(),
+                    HinhThucXetTuyen = c.Boolean(),
+                })
                 .PrimaryKey(t => t.DXT_ID);
-            
+
             CreateTable(
                 "dbo.DSNguyenVong",
                 c => new
-                    {
-                        MaHoSo = c.Int(nullable: false),
-                        ThuTuNV = c.Int(nullable: false),
-                        MaToHop = c.String(nullable: false, maxLength: 5),
-                        MaNganh = c.String(nullable: false, maxLength: 50),
-                        MaTDH = c.String(maxLength: 10),
-                        TrangThaiNV = c.String(maxLength: 10),
-                    })
+                {
+                    MaHoSo = c.Int(nullable: false),
+                    ThuTuNV = c.Int(nullable: false),
+                    MaToHop = c.String(nullable: false, maxLength: 5),
+                    MaNganh = c.String(nullable: false, maxLength: 50),
+                    MaTDH = c.String(maxLength: 10),
+                    TrangThaiNV = c.String(maxLength: 10),
+                })
                 .PrimaryKey(t => new { t.MaHoSo, t.ThuTuNV })
                 .ForeignKey("dbo.HoSoXetTuyen", t => t.MaHoSo, cascadeDelete: true)
                 .ForeignKey("dbo.NganhTheoBo", t => t.MaNganh, cascadeDelete: true)
@@ -197,89 +196,88 @@ namespace Web_Datamining.Data.Migrations
                 .Index(t => t.MaHoSo)
                 .Index(t => t.MaToHop)
                 .Index(t => t.MaNganh);
-            
+
             CreateTable(
                 "dbo.NganhTheoBo",
                 c => new
-                    {
-                        MaNganh = c.String(nullable: false, maxLength: 50),
-                        TeNganh = c.String(maxLength: 50),
-                    })
+                {
+                    MaNganh = c.String(nullable: false, maxLength: 50),
+                    TeNganh = c.String(maxLength: 50),
+                })
                 .PrimaryKey(t => t.MaNganh);
-            
+
             CreateTable(
                 "dbo.ToHopMon",
                 c => new
-                    {
-                        MaToHop = c.String(nullable: false, maxLength: 5),
-                        Mon1 = c.String(maxLength: 20),
-                        Mon2 = c.String(maxLength: 20),
-                        Mon3 = c.String(maxLength: 20),
-                    })
+                {
+                    MaToHop = c.String(nullable: false, maxLength: 5),
+                    Mon1 = c.String(maxLength: 20),
+                    Mon2 = c.String(maxLength: 20),
+                    Mon3 = c.String(maxLength: 20),
+                })
                 .PrimaryKey(t => t.MaToHop);
-            
+
             CreateTable(
                 "dbo.TruongTHPT",
                 c => new
-                    {
-                        MaTruongTHPT = c.Int(nullable: false),
-                        MaHuyen = c.Int(nullable: false),
-                        MaTinh = c.Int(nullable: false),
-                        TenTruong = c.String(maxLength: 50),
-                    })
+                {
+                    MaTruongTHPT = c.Int(nullable: false),
+                    MaHuyen = c.Int(nullable: false),
+                    MaTinh = c.Int(nullable: false),
+                    TenTruong = c.String(maxLength: 50),
+                })
                 .PrimaryKey(t => t.MaTruongTHPT)
                 .ForeignKey("dbo.Huyen", t => new { t.MaHuyen, t.MaTinh }, cascadeDelete: true)
                 .Index(t => new { t.MaHuyen, t.MaTinh });
-            
+
             CreateTable(
                 "dbo.Huyen",
                 c => new
-                    {
-                        MaHuyen = c.Int(nullable: false),
-                        MaTinh = c.Int(nullable: false),
-                        khuvuc = c.String(maxLength: 20),
-                        TenHuyen = c.String(maxLength: 50),
-                    })
+                {
+                    MaHuyen = c.Int(nullable: false),
+                    MaTinh = c.Int(nullable: false),
+                    khuvuc = c.String(maxLength: 20),
+                    TenHuyen = c.String(maxLength: 50),
+                })
                 .PrimaryKey(t => new { t.MaHuyen, t.MaTinh })
                 .ForeignKey("dbo.Tinh", t => t.MaTinh, cascadeDelete: true)
                 .Index(t => t.MaTinh);
-            
+
             CreateTable(
                 "dbo.Tinh",
                 c => new
-                    {
-                        MaTinh = c.Int(nullable: false),
-                        TenTinh = c.String(maxLength: 50),
-                        KhuVuc = c.String(maxLength: 20),
-                    })
+                {
+                    MaTinh = c.Int(nullable: false),
+                    TenTinh = c.String(maxLength: 50),
+                    KhuVuc = c.String(maxLength: 20),
+                })
                 .PrimaryKey(t => t.MaTinh);
-            
+
             CreateTable(
                 "dbo.Luat",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        X = c.String(maxLength: 100),
-                        Y = c.String(maxLength: 100),
-                        Support = c.Decimal(precision: 18, scale: 2),
-                        Confidence = c.Decimal(precision: 18, scale: 2),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    X = c.String(maxLength: 100),
+                    Y = c.String(maxLength: 100),
+                    Support = c.Decimal(precision: 18, scale: 2),
+                    Confidence = c.Decimal(precision: 18, scale: 2),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.LuatXetTuyen",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        X = c.String(maxLength: 100),
-                        Y = c.String(maxLength: 100),
-                        Support = c.Decimal(precision: 18, scale: 2),
-                        Confidence = c.Decimal(precision: 18, scale: 2),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    X = c.String(maxLength: 100),
+                    Y = c.String(maxLength: 100),
+                    Support = c.Decimal(precision: 18, scale: 2),
+                    Confidence = c.Decimal(precision: 18, scale: 2),
+                })
                 .PrimaryKey(t => t.Id);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.SinhVien", "ID_Lop", "dbo.Lop");
