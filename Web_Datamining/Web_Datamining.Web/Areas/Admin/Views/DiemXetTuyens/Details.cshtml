@@ -1,0 +1,91 @@
+﻿@model Web_Datamining.Models.DiemXetTuyen
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DiemXetTuyen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemToan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemVan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemVan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemLy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemLy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemHoa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemHoa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemSinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemSinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemDia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemDia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemGDCD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemGDCD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemNN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemNN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HinhThucXetTuyen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HinhThucXetTuyen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DXT_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

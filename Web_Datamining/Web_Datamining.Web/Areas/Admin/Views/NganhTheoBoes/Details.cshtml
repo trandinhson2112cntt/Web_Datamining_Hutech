@@ -1,0 +1,27 @@
+﻿@model Web_Datamining.Models.NganhTheoBo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NganhTheoBo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeNganh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaNganh }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

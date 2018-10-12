@@ -1,0 +1,27 @@
+﻿@model Web_Datamining.Models.KhoaHoc
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KhoaHoc</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NamHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamHoc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKhoaHoc }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

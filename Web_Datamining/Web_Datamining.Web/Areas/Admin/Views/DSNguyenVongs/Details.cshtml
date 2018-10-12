@@ -1,0 +1,59 @@
+﻿@model Web_Datamining.Models.DSNguyenVong
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DSNguyenVong</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HoSoXetTuyen.CMDN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoSoXetTuyen.CMDN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NganhTheoBo.TeNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NganhTheoBo.TeNganh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToHopMon.Mon1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToHopMon.Mon1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaTDH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaTDH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThaiNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrangThaiNV)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Web_Datamining.Models.ToHopMon>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tổ Hợp Môn</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Mon1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mon2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mon3)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mon1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mon2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mon3)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaToHop }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaToHop }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaToHop })
+        </td>
+    </tr>
+}
+
+</table>

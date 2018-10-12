@@ -1,0 +1,83 @@
+﻿@model Web_Datamining.Models.HoSoXetTuyen
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HoSoXetTuyen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemXetTuyen.DXT_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemXetTuyen.DXT_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TruongTHPT.TenTruong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruongTHPT.TenTruong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CMDN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CMDN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DanToc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DanToc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TinhTrangTrungTuyen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TinhTrangTrungTuyen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHoSo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

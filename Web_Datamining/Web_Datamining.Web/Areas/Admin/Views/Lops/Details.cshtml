@@ -1,0 +1,51 @@
+﻿@model Web_Datamining.Models.Lop
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lop</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChuyenNganh.TenChuyenNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChuyenNganh.TenChuyenNganh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeDaoTao.TenHeDaoTao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeDaoTao.TenHeDaoTao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KhoaHoc.NamHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhoaHoc.NamHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenLop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenLop)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Lop }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
