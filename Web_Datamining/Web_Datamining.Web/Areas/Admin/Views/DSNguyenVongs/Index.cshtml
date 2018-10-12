@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Web_Datamining.Models.DSNguyenVong>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DS Nguyện Vọng</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HoSoXetTuyen.CMDN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NganhTheoBo.TeNganh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToHopMon.Mon1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaTDH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangThaiNV)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoSoXetTuyen.CMDN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NganhTheoBo.TeNganh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToHopMon.Mon1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaTDH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangThaiNV)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Web_Datamining.Models.ChuyenNganh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chuyên Ngành</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Khoa.TenKhoa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenChuyenNganh)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Khoa.TenKhoa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenChuyenNganh)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaChuyenNganh }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaChuyenNganh }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaChuyenNganh })
+        </td>
+    </tr>
+}
+
+</table>

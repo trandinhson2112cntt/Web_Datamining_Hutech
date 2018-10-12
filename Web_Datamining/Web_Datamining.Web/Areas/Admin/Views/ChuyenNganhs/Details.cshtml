@@ -1,0 +1,35 @@
+﻿@model Web_Datamining.Models.ChuyenNganh
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChuyenNganh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Khoa.TenKhoa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Khoa.TenKhoa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenChuyenNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenChuyenNganh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaChuyenNganh }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

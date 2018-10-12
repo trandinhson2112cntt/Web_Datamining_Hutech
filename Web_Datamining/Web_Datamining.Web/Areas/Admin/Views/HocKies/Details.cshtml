@@ -1,0 +1,35 @@
+﻿@model Web_Datamining.Models.HocKy
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HocKy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NamHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KyHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KyHoc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_HocKi }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

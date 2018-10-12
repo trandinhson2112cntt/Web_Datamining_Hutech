@@ -58,10 +58,12 @@
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -199,6 +201,30 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChuyenNganhsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiemCTHKiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiemHocKiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiemXetTuyensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DSNguyenVongsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HeDaoTaosController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HocKiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HoSoXetTuyensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HuyensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KhoaHocsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KhoasController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LopsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LuatsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LuatXetTuyensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MonHocsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NganhTheoBoesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SinhViensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TinhsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ToHopMonsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TruongTHPTsController.cs" />
+
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Apriori\clssApriori.cs" />
@@ -206,6 +232,7 @@
     <Compile Include="Apriori\ClssItemCollection.cs" />
     <Compile Include="Apriori\clssItemSet.cs" />
     <Compile Include="Apriori\ClssRules.cs" />
+
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,6 +248,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\layout.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -230,6 +258,115 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\HeDaoTaos\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HeDaoTaos\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HeDaoTaos\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HeDaoTaos\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HeDaoTaos\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HocKies\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HocKies\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HocKies\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HocKies\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HocKies\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HoSoXetTuyens\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HoSoXetTuyens\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HoSoXetTuyens\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HoSoXetTuyens\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HoSoXetTuyens\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Huyens\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Huyens\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Huyens\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Huyens\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Huyens\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Khoas\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Khoas\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Khoas\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Khoas\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Khoas\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KhoaHocs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\KhoaHocs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\KhoaHocs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\KhoaHocs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\KhoaHocs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Lops\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Lops\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Lops\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Lops\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Lops\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Luats\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Luats\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Luats\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Luats\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Luats\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LuatXetTuyens\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\LuatXetTuyens\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\LuatXetTuyens\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\LuatXetTuyens\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\LuatXetTuyens\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHocs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHocs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHocs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHocs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHocs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NganhTheoBoes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NganhTheoBoes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NganhTheoBoes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NganhTheoBoes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NganhTheoBoes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SinhViens\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SinhViens\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SinhViens\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SinhViens\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SinhViens\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Tinhs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Tinhs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Tinhs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Tinhs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tinhs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ToHopMons\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ToHopMons\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ToHopMons\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ToHopMons\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ToHopMons\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TruongTHPTs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TruongTHPTs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\TruongTHPTs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TruongTHPTs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TruongTHPTs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ChuyenNganhs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ChuyenNganhs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ChuyenNganhs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ChuyenNganhs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ChuyenNganhs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemCTHKies\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemCTHKies\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemCTHKies\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemCTHKies\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemCTHKies\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemHocKies\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemHocKies\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemHocKies\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemHocKies\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemHocKies\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemXetTuyens\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemXetTuyens\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemXetTuyens\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemXetTuyens\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DiemXetTuyens\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DSNguyenVongs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DSNguyenVongs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DSNguyenVongs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DSNguyenVongs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DSNguyenVongs\Index.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -240,6 +377,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -258,7 +396,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+
+    <Folder Include="Areas\Admin\Content\bower_components\" />
+    <Folder Include="Areas\Admin\Content\dist\" />
+    <Folder Include="Areas\Admin\Content\plugins\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Content\bower_components\" />
+    <Folder Include="Content\dist\" />
+    <Folder Include="Content\plugins\" />
+    <Folder Include="Models\" />
+
     <Folder Include="Infrastructure\Extension\" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -286,6 +435,9 @@
       <Project>{cfab61cd-6764-44e0-87ef-a50c4951a783}</Project>
       <Name>Web_Datamining.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
