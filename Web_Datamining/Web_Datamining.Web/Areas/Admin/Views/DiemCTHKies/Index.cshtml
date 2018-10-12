@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Web_Datamining.Models.DiemCTHKy>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Điểm CT Học Kì</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemHocKy.MSSV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonHoc.TenMon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemQT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemThi1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemThi2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TiLeDiemTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TiLeDiemQT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TiLeDiemThi1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TiLeDiemThi2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemTKHe10)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemTKHe4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemTKChu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemHocKy.MSSV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonHoc.TenMon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemTH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemQT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemThi1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemThi2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TiLeDiemTH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TiLeDiemQT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TiLeDiemThi1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TiLeDiemThi2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemTKHe10)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemTKHe4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemTKChu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

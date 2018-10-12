@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Web_Datamining.Models.Lop>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DS Lớp</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ChuyenNganh.TenChuyenNganh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeDaoTao.TenHeDaoTao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KhoaHoc.NamHoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenLop)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeDaoTao.TenHeDaoTao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KhoaHoc.NamHoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenLop)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Lop }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Lop }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Lop })
+        </td>
+    </tr>
+}
+
+</table>

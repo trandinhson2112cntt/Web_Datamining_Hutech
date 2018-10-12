@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Web_Datamining.Models.SinhVien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DS Sinh Viên</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HoSoXetTuyen.CMDN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lop.MaChuyenNganh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoVanHocTap)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoSoXetTuyen.CMDN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lop.MaChuyenNganh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CoVanHocTap)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MSSV }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MSSV }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MSSV })
+        </td>
+    </tr>
+}
+
+</table>
