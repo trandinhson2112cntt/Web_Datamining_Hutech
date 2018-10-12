@@ -58,6 +58,7 @@
     <Compile Include="Models\DiemHocKy.cs" />
     <Compile Include="Models\DiemXetTuyen.cs" />
     <Compile Include="Models\DSNguyenVong.cs" />
+    <Compile Include="Models\Error.cs" />
     <Compile Include="Models\HeDaoTao.cs" />
     <Compile Include="Models\HocKy.cs" />
     <Compile Include="Models\HoSoXetTuyen.cs" />
