@@ -201,7 +201,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ChuyenNganhsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiemCTHKiesController.cs" />
@@ -224,7 +223,6 @@
     <Compile Include="Areas\Admin\Controllers\TinhsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ToHopMonsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TruongTHPTsController.cs" />
-
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Apriori\clssApriori.cs" />
@@ -232,7 +230,6 @@
     <Compile Include="Apriori\ClssItemCollection.cs" />
     <Compile Include="Apriori\clssItemSet.cs" />
     <Compile Include="Apriori\ClssRules.cs" />
-
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -248,7 +245,34 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\layout.css" />
+    <Content Include="Content\css\addons\datatables.css" />
+    <Content Include="Content\css\addons\datatables.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\free\modules\animations-extended\animations-extended.css" />
+    <Content Include="Content\css\mdb.css" />
+    <Content Include="Content\css\mdb.lite.css" />
+    <Content Include="Content\css\mdb.lite.min.css" />
+    <Content Include="Content\css\mdb.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\style.min.css" />
+    <Content Include="Content\js\addons\datatables.js" />
+    <Content Include="Content\js\addons\datatables.min.js" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\jquery-3.3.1.min.js" />
+    <Content Include="Content\js\mdb.js" />
+    <Content Include="Content\js\mdb.min.js" />
+    <Content Include="Content\js\modules\chart.js" />
+    <Content Include="Content\js\modules\enhanced-modals.js" />
+    <Content Include="Content\js\modules\forms-free.js" />
+    <Content Include="Content\js\modules\jquery.easing.js" />
+    <Content Include="Content\js\modules\scrolling-navbar.js" />
+    <Content Include="Content\js\modules\velocity.js" />
+    <Content Include="Content\js\modules\velocity.min.js" />
+    <Content Include="Content\js\modules\waves.js" />
+    <Content Include="Content\js\modules\wow.js" />
+    <Content Include="Content\js\popper.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -396,18 +420,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-
     <Folder Include="Areas\Admin\Content\bower_components\" />
     <Folder Include="Areas\Admin\Content\dist\" />
     <Folder Include="Areas\Admin\Content\plugins\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Content\bower_components\" />
-    <Folder Include="Content\dist\" />
-    <Folder Include="Content\plugins\" />
-    <Folder Include="Models\" />
-
     <Folder Include="Infrastructure\Extension\" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
