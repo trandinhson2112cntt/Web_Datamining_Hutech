@@ -23,7 +23,7 @@ namespace Web_Datamining.Data
         public DbSet<KhoaHoc> KhoaHocs { get; set; }
         public DbSet<Lop> Lops { get; set; }
         public DbSet<Luat> Luats { get; set; }
-        public DbSet<LuatXetTuyen> LuatXetTuyens { get; set; }
+        public DbSet<LoaiLuat> LoaiLuats { get; set; }
         public DbSet<MonHoc> MonHocs { get; set; }
         public DbSet<NganhTheoBo> NganhTheoBos { get; set; }
         public DbSet<SinhVien> SinhViens { get; set; }

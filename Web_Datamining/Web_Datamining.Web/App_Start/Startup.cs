@@ -47,14 +47,14 @@ namespace Web_Datamining.Web.App_Start
             //builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             //builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
             // Repositories
-            builder.RegisterAssemblyTypes(typeof(LuatXetTuyenRepository).Assembly)
-                .Where(t => t.Name.EndsWith("Repository"))
-                .AsImplementedInterfaces().InstancePerRequest();
+            //builder.RegisterAssemblyTypes(typeof(LuatXetTuyenRepository).Assembly)
+            //    .Where(t => t.Name.EndsWith("Repository"))
+            //    .AsImplementedInterfaces().InstancePerRequest();
 
-            // Services
-            builder.RegisterAssemblyTypes(typeof(LuatXetTuyenService).Assembly)
-               .Where(t => t.Name.EndsWith("Service"))
-               .AsImplementedInterfaces().InstancePerRequest();
+            //// Services
+            //builder.RegisterAssemblyTypes(typeof(LuatXetTuyenService).Assembly)
+            //   .Where(t => t.Name.EndsWith("Service"))
+            //   .AsImplementedInterfaces().InstancePerRequest();
 
             Autofac.IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

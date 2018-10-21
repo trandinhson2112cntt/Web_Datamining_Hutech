@@ -9,79 +9,79 @@ using Web_Datamining.Models;
 
 namespace Web_Datamining.Service
 {
-    public interface ILuatXetTuyenService
-    {
-        LuatXetTuyen Add(LuatXetTuyen luatXetTuyen);
+    //public interface ILoaiLuatService
+    //{
+    //    LoaiLuat Add(LoaiLuat LoaiLuat);
 
-        void Update(LuatXetTuyen luatXetTuyen);
+    //    void Update(LoaiLuat LoaiLuat);
 
-        LuatXetTuyen Delete(int id);
-        LuatXetTuyen DeleteItem(LuatXetTuyen item);
+    //    LoaiLuat Delete(int id);
+    //    LoaiLuat DeleteItem(LoaiLuat item);
 
-        IEnumerable<LuatXetTuyen> GetAll();
+    //    IEnumerable<LoaiLuat> GetAll();
 
-        IEnumerable<LuatXetTuyen> GetAll(string keyword);
+    //    IEnumerable<LoaiLuat> GetAll(string keyword);
 
-        LuatXetTuyen GetById(int id);
+    //    LoaiLuat GetById(int id);
 
-        void Save();
-    }
-    public class LuatXetTuyenService : ILuatXetTuyenService
-    {
-        private ILuatXetTuyenRepository _luatXetTuyenRepository;
-        private IUnitOfWork _unitOfWork;
+    //    void Save();
+    //}
+    //public class LoaiLuatService : ILoaiLuatService
+    //{
+    //    private ILoaiLuatnRepository _LoaiLuatRepository;
+    //    private IUnitOfWork _unitOfWork;
 
-        public LuatXetTuyenService(ILuatXetTuyenRepository luatXetTuyenRepository, IUnitOfWork unitOfWork)
-        {
-            this._luatXetTuyenRepository = luatXetTuyenRepository;
-            this._unitOfWork = unitOfWork;
-        }
+    //    public LoaiLuatService(ILoaiLuatnRepository LoaiLuatRepository, IUnitOfWork unitOfWork)
+    //    {
+    //        this._LoaiLuatRepository = LoaiLuatRepository;
+    //        this._unitOfWork = unitOfWork;
+    //    }
 
-        public LuatXetTuyen Add(LuatXetTuyen luatXetTuyen)
-        {
-            return _luatXetTuyenRepository.Add(luatXetTuyen);
-        }
+    //    public LoaiLuat Add(LoaiLuat LoaiLuat)
+    //    {
+    //        return _LoaiLuatRepository.Add(LoaiLuat);
+    //    }
 
-        public LuatXetTuyen Delete(int id)
-        {
-            return _luatXetTuyenRepository.Delete(id);
-        }
+    //    public LoaiLuat Delete(int id)
+    //    {
+    //        return _LoaiLuatRepository.Delete(id);
+    //    }
 
-        public LuatXetTuyen DeleteItem(LuatXetTuyen item)
-        {
-            return _luatXetTuyenRepository.Delete(item);
-        }
+    //    public LoaiLuat DeleteItem(LoaiLuat item)
+    //    {
+    //        return _LoaiLuatRepository.Delete(item);
+    //    }
 
-        public IEnumerable<LuatXetTuyen> GetAll()
-        {
-            return _luatXetTuyenRepository.GetAll();
-        }
+    //    public IEnumerable<LoaiLuat> GetAll()
+    //    {
+    //        return _LoaiLuatRepository.GetAll();
+    //    }
 
-        public IEnumerable<LuatXetTuyen> GetAll(string keyword)
-        {
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                return _luatXetTuyenRepository.GetMulti(x => x.X.Contains(keyword) || x.Y.Contains(keyword));
-            }
-            else
-            {
-                return _luatXetTuyenRepository.GetAll();
-            }
-        }
+    //    public IEnumerable<LoaiLuat> GetAll(string keyword)
+    //    {
+    //        if (!string.IsNullOrEmpty(keyword))
+    //        {
+    //            return _LoaiLuatRepository.GetMulti(x => x.X.Contains(keyword) || x.Y.Contains(keyword));
+    //        }
+    //        else
+    //        {
+    //            return _LoaiLuatRepository.GetAll();
+    //        }
+    //    }
 
-        public LuatXetTuyen GetById(int id)
-        {
-            return _luatXetTuyenRepository.GetSingleById(id);
-        }
+    //    public LoaiLuat GetById(int id)
+    //    {
+    //        return _LoaiLuatRepository.GetSingleById(id);
+    //    }
 
-        public void Save()
-        {
-            _unitOfWork.Commit();
-        }
+    //    public void Save()
+    //    {
+    //        _unitOfWork.Commit();
+    //    }
 
-        public void Update(LuatXetTuyen luatXetTuyen)
-        {
-            _luatXetTuyenRepository.Update(luatXetTuyen);
-        }
-    }
+    //    public void Update(LoaiLuat LoaiLuat)
+    //    {
+    //        _LoaiLuatRepository.Update(LoaiLuat);
+    //    }
+    //}
 }

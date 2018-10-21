@@ -3,13 +3,13 @@ using Web_Datamining.Models;
 
 namespace Web_Datamining.Data.Repositories
 {
-    public interface ILuatXetTuyenRepository : IRepository<LuatXetTuyen>
+    public interface ILoaiLuatnRepository : IRepository<LoaiLuat>
     {
     }
 
-    public class LuatXetTuyenRepository : RepositoryBase<LuatXetTuyen>, ILuatXetTuyenRepository
+    public class LoaiLuatRepository : RepositoryBase<LoaiLuat>, ILoaiLuatnRepository
     {
-        public LuatXetTuyenRepository(IDbFactory dbFactory) : base(dbFactory)
+        public LoaiLuatRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
     }
