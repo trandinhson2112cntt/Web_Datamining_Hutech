@@ -70,7 +70,7 @@
     <Compile Include="Models\KhoaHoc.cs" />
     <Compile Include="Models\Lop.cs" />
     <Compile Include="Models\Luat.cs" />
-    <Compile Include="Models\LuatXetTuyen.cs" />
+    <Compile Include="Models\LoaiLuat.cs" />
     <Compile Include="Models\MonHoc.cs" />
     <Compile Include="Models\NganhTheoBo.cs" />
     <Compile Include="Models\SinhVien.cs" />
