@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ChuongTrinhDaoTao.cs" />
     <Compile Include="Models\ChuyenNganh.cs" />
     <Compile Include="Models\DiemCTHKy.cs" />
     <Compile Include="Models\DiemHocKy.cs" />
