@@ -26,6 +26,10 @@ namespace Web_Datamining.Models
         [StringLength(10)]
         public string TenLop { get; set; }
 
+        public string MaKhoa { get; set; }
+        [ForeignKey("MaKhoa")]
+        public virtual Khoa Khoa { get; set; }
+
         public virtual ChuyenNganh ChuyenNganh { get; set; }
 
         public virtual HeDaoTao HeDaoTao { get; set; }

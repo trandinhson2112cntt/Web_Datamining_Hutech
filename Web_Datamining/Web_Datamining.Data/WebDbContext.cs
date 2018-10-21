@@ -31,6 +31,7 @@ namespace Web_Datamining.Data
         public DbSet<ToHopMon> ToHopMons { get; set; }
         public DbSet<TruongTHPT> TruongTHPTs { get; set; }
         public DbSet<Error> Errors { get; set; }
+        public DbSet<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }
 
         public static WebDbContext Create()
         {
