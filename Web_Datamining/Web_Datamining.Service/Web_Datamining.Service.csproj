@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorService.cs" />
-    <Compile Include="LuatXetTuyenService.cs" />
+    <Compile Include="LuatService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
