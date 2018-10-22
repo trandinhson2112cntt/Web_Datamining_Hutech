@@ -13,6 +13,7 @@ namespace Web_Datamining.Web.Mappings
         public static void Configure()
         {
             Mapper.CreateMap<Luat, LuatViewModel>();
+            //aa
         }
     }
 }
