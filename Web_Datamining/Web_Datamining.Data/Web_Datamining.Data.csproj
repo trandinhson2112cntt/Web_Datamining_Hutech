@@ -107,7 +107,7 @@
     <Compile Include="Repositories\KhoaHocRepository.cs" />
     <Compile Include="Repositories\KhoaRepository.cs" />
     <Compile Include="Repositories\LopRepository.cs" />
-    <Compile Include="Repositories\LuatRepository.cs" />
+    <Compile Include="Repositories\LuatXetTuyenRepository.cs" />
     <Compile Include="Repositories\MonHocRepository.cs" />
     <Compile Include="Repositories\NganhTheoBoRepository.cs" />
     <Compile Include="Repositories\SinhVienRepository.cs" />

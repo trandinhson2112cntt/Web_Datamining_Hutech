@@ -197,7 +197,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\LuatHocTapController.cs" />
     <Compile Include="Api\LuatXetTuyenController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -431,6 +430,7 @@
     <Folder Include="Content\bower_components\" />
     <Folder Include="Content\dist\" />
     <Folder Include="Content\plugins\" />
+    <Folder Include="Infrastructure\Extension\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
