@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Web_Datamining.Web.Models
 {
-    public class LuatXetTuyenViewModel
+    public class LuatViewModel
     {
         public int Id { get; set; }
 
