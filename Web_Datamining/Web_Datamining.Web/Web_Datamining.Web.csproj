@@ -239,6 +239,7 @@
     <Compile Include="Infrastructure\Extension\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="LuatModel\ListViewXetTuyen.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\LuatViewModel.cs" />
     <Compile Include="Models\LuatXetTuyenViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
