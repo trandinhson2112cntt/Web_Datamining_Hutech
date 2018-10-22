@@ -146,5 +146,6 @@ namespace Web_Datamining.Web.Api
         //                        from ChuongTrinhDaoTao ct
 
         //                        where ct.MaKhoa = k.MaKhoa and ct.ID_HocKi dcthk.ID_HocKi)
+        abc
     }
 }
