@@ -63,7 +63,7 @@ namespace Web_Datamining.Service
         {
             if (!string.IsNullOrEmpty(keyword))
             {
-                return _LuatRepository.GetMulti(x => x.X.Contains(keyword));
+                return _LuatRepository.GetMulti(x => x.X.Contains(keyword) || x.Y.Contains(keyword));
             }
             else
             {
