@@ -14,154 +14,120 @@ using Web_Datamining.Service;
 
 namespace Web_Datamining.Web.Api
 {
-    //[RoutePrefix("api/luatxettuyen")]
-    //[AllowCrossSiteJson]
-//    public class LuatXetTuyenController : ApiControllerBase
-//    {
-//        private ILuatXetTuyenService _luatXetTuyenService;
-//        public LuatXetTuyenController(IErrorService errorService,ILuatXetTuyenService luatXetTuyenService) : base(errorService)
-//        {
-//            this._luatXetTuyenService = luatXetTuyenService;
-//        }
+    [RoutePrefix("api/luatxettuyen")]
+    [AllowCrossSiteJson]
+    public class LuatXetTuyenController : ApiControllerBase
+    {
+        #region Contructor
+        private ILuatService _luatService;
+        public LuatXetTuyenController(IErrorService errorService, ILuatService luatService) : base(errorService)
+        {
+            this._luatService = luatService;
+        }
+        //Db classitem hỗ trợ thuật toán apriori
+        ClssItemCollection db = new ClssItemCollection();
+        #endregion
 
-//        [Route("getall")]
-//        [HttpGet]
-//        public HttpResponseMessage GetAll(HttpRequestMessage request,string keyword)
-//        {
-//            return CreateHttpResponse(request, () =>
-//            {
-//                int totalRow = 0;
-//                var model = _luatXetTuyenService.GetAll(keyword);
-//                totalRow = model.Count();
-//                var query = model.OrderByDescending(x => x.X);
+        #region Api tạo danh sach luật: Hình thức xét tuyển => Khu vực
+        [Route("create")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage Create(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    List<ClssRules> allRules = GetRulesXetTuyen(sup, con);
+                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
+                    foreach (var item in listLuatTheoIdLoaiLuat)
+                    {
+                        _luatService.DeleteItem(item);
+                    }
+                    _luatService.Save();
+                    //Đẩy danh sach các luật vào cơ sở dữ liệu
+                    foreach (ClssRules rule in allRules)
+                    {
+                        Luat luat = new Luat
+                        {
+                            X = rule.X.ToString(),
+                            Y = rule.Y.ToString(),
+                            Support = (decimal)rule.Support,
+                            Confidence = (decimal)rule.Confidence,
+                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
+                        };
+                        _luatService.Add(luat);
+                    }
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
+                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+                return response;
+            });
+        }
+        #endregion
 
-//                var responseData = Mapper.Map<IEnumerable<LuatXetTuyen>, List<LuatXetTuyenViewModel>>(query);
+        #region Api lấy sử dụng luật: Hình thức xét tuyển => Khu vực
+        [Route("getall")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var model = _luatService.GetAll(idLoaiLuat);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.X);
 
-//                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-//                return response;
-//            });
-//        }
-//        [Route("create")]
-//        [HttpPost]
-//        [AllowAnonymous]
-//        public HttpResponseMessage Create(HttpRequestMessage request,double sup, double con)
-//        {
-//            return CreateHttpResponse(request, () =>
-//            {
-//                HttpResponseMessage response = null;
-//                if (!ModelState.IsValid)
-//                {
-//                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
-//                }
-//                else
-//                {
-//                    List<ClssRules> allRules = GetRulesXetTuyen(sup, con);
-//                    //Delete old rules
-//                    var listLuat = _luatXetTuyenService.GetAll();
-//                    foreach (var item in listLuat)
-//                    {
-//                        _luatXetTuyenService.DeleteItem(item);
-//                    }
-//                    _luatXetTuyenService.Save();
+                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
 
-//                    //Insert new rules
-//                    foreach (ClssRules rule in allRules)
-//                    {
-//                        LuatXetTuyen luat = new LuatXetTuyen
-//                        {
-//                            X = rule.X.ToString(),
-//                            Y = rule.Y.ToString(),
-//                            Support = (decimal)rule.Support,
-//                            Confidence = (decimal)rule.Confidence
-//                        };
-//                        _luatXetTuyenService.Add(luat);
-//                    }
-//                    _luatXetTuyenService.Save();
-//                    var newListLuat = _luatXetTuyenService.GetAll();
-//                    var responseData = Mapper.Map<IEnumerable<LuatXetTuyen>, List<LuatXetTuyenViewModel>>(newListLuat);
-//                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
-//                }
-//                return response;
-//            });
-//        }
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+        #endregion
 
-//        //Static
-//        ClssItemCollection db = new ClssItemCollection();
-//        public List<ClssRules> GetRulesXetTuyen(double sup, double con)
-//        {
-//            //double minSupport = Double.Parse(formCollection["MinSupport"]);
-//            //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
-//            WebDbContext dbContext = new WebDbContext();
-//            var dataListView = (from dsnv in dbContext.DSNguyenVongs
-//                                join hoso in dbContext.HoSoXetTuyens on dsnv.MaHoSo equals hoso.MaHoSo
-//                                join dxt in dbContext.DiemXetTuyens on hoso.DXT_ID equals dxt.DXT_ID
-//                                where hoso.DXT_ID == dxt.DXT_ID
-//                                select new ListViewXetTuyen
-//                                {
-//                                    MaHoSo = dsnv.MaHoSo,
-//                                    HoTen = dsnv.HoSoXetTuyen.HoTen,
-//                                    TinhTrangTrungTuyen = (hoso.TinhTrangTrungTuyen == 1) ? "Đậu" : "Rớt",
-//                                    TongDiem = (dxt.DiemToan + dxt.DiemLy + dxt.DiemHoa < 30) ? (dxt.DiemToan + dxt.DiemLy + dxt.DiemHoa > 20) ? "[20..30]" : (dxt.DiemToan + dxt.DiemLy + dxt.DiemHoa > 13) ? "[13..20]" : "[0..13]" : "",
-//                                    KhoaXetTuyen = dsnv.NganhTheoBo.TeNganh
+        #region Hàm lấy ra danh sách các luật: Hình thức xét tuyển => Khu vực
+        public List<ClssRules> GetRulesXetTuyen(double sup, double con)
+        {
+            //double minSupport = Double.Parse(formCollection["MinSupport"]);
+            //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
+            WebDbContext dbContext = new WebDbContext();
+            var dataListView = (from HoSoXetTuyens in dbContext.HoSoXetTuyens
+                               from Tinhs in dbContext.Tinhs
+                               where
+                                 HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh
+                               select new
+                               {
+                                   HoSoXetTuyens.CMDN,
+                                   HoSoXetTuyens.TruongTHPT.TenTruong,
+                                   Tinhs.TenTinh,
+                                   HinhThucXetTuyen = (bool?)HoSoXetTuyens.DiemXetTuyen.HinhThucXetTuyen
+                               }).ToList();
+            string result = "";
+            foreach (var item in dataListView)
+            {
+                db.Add(new clssItemSet()
+                {
+                    (item.HinhThucXetTuyen == true ? "Thi tuyển" : "Học bạ"),
+                    item.TenTinh
+                });
+            }
 
-//                                }).ToList();
-//            string result = "";
-//            foreach (var item in dataListView)
-//            {
-//                db.Add(new clssItemSet()
-//                {
-//                    item.TongDiem,
-//                    item.KhoaXetTuyen,
-//                    item.TinhTrangTrungTuyen
-//                });
-//            }
+            clssItemSet uniqueItems = db.GetUniqueItems();
+            ClssItemCollection L = clssApriori.DoApriori(db, sup);
+            List<ClssRules> allRules = clssApriori.Mine(db, L, con);
+            result = "\n" + allRules.Count + " rules \n";
 
-//            clssItemSet uniqueItems = db.GetUniqueItems();
-//            ClssItemCollection L = clssApriori.DoApriori(db, sup);
-//            List<ClssRules> allRules = clssApriori.Mine(db, L, con);
-//            result = "\n" + allRules.Count + " rules \n";
-
-//            return allRules;
-//            /*
-//            //Delete old rules
-//            var listLuat = dbContext.LuatXetTuyens.ToList();
-//            foreach (var item in listLuat)
-//            {
-//                dbContext.LuatXetTuyens.DeleteOnSubmit(item);
-//                dbContext.SubmitChanges();
-//            }
-
-//            //Insert new rules
-//            foreach (ClssRules rule in allRules)
-//            {
-//                LuatXetTuyen luat = new LuatXetTuyen
-//                {
-//                    X = rule.X.ToString(),
-//                    Y = rule.Y.ToString(),
-//                    Support = (decimal)rule.Support,
-//                    Confidence = (decimal)rule.Confidence
-//                };
-//                dbContext.LuatXetTuyens.InsertOnSubmit(luat);
-//            }
-//            dbContext.SubmitChanges();
-
-//            //Show
-//            var listRules = dbContext.LuatXetTuyens.ToList();
-//            foreach (ClssRules rule in allRules)
-//            {
-//                Console.WriteLine(rule + "\n");
-//                result += rule + "\n";
-//            }
-//            */
-//        }
-
-////         select distinct dcthk.MaMon
-////         from ChuongTrinhDaoTao CTDT, MonHoc mh,SinhVien sv, DiemHocKy dhk, DiemCTHKy dcthk, Lop l,ChuyenNganh cn, 
-////              Khoa k
-////         where k.TenKhoa like 'CNTT' and k.MaKhoa = cn.MaKhoa and cn.MaChuyenNganh = l.MaChuyenNganh and l.ID_Lop =                    sv.ID_Lop
-////         and dhk.MSSV = sv.MSSV and dcthk.MSSV = dhk.MSSV
-////         and dcthk.MaMon not in (select ct.MaMon
-////                                 from ChuongTrinhDaoTao ct
-////                                 where ct.MaKhoa = k.MaKhoa and ct.ID_HocKi   dcthk.ID_HocKi)
-//    }
+            return allRules;
+        }
+        #endregion
+    }
 }

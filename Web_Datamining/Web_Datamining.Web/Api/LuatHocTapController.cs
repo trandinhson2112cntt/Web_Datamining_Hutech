@@ -19,14 +19,15 @@ namespace Web_Datamining.Web.Api
     public class LuatHocTapController : ApiControllerBase
     {
         #region Contructor
-        private ILuatService _luatXetTuyenService;
-        public LuatHocTapController(IErrorService errorService, ILuatService luatXetTuyenService) : base(errorService)
+        private ILuatService _luatService;
+        public LuatHocTapController(IErrorService errorService, ILuatService luatService) : base(errorService)
         {
-            this._luatXetTuyenService = luatXetTuyenService;
+            this._luatService = luatService;
         }
         //Db classitem hỗ trợ thuật toán apriori
         ClssItemCollection db = new ClssItemCollection();
         #endregion
+
         #region Api tạo danh sach luật: Khoa => Môn học vượt
         [Route("create")]
         [HttpPost]
@@ -44,12 +45,12 @@ namespace Web_Datamining.Web.Api
                 {
                     List<ClssRules> allRules = GetRulesXetTuyen(sup, con);
                     //Xóa những dữ liệu luật cũ theo idLoaiLuat
-                    var listLuatTheoIdLoaiLuat = _luatXetTuyenService.GetAll(idLoaiLuat);
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
                     foreach (var item in listLuatTheoIdLoaiLuat)
                     {
-                        _luatXetTuyenService.DeleteItem(item);
+                        _luatService.DeleteItem(item);
                     }
-                    _luatXetTuyenService.Save();
+                    _luatService.Save();
                     //Đẩy danh sach các luật vào cơ sở dữ liệu
                     foreach (ClssRules rule in allRules)
                     {
@@ -61,10 +62,10 @@ namespace Web_Datamining.Web.Api
                             Confidence = (decimal)rule.Confidence,
                             LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
                         };
-                        _luatXetTuyenService.Add(luat);
+                        _luatService.Add(luat);
                     }
-                    _luatXetTuyenService.Save();
-                    var newListLuat = _luatXetTuyenService.GetAll();
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
                     var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
@@ -76,12 +77,12 @@ namespace Web_Datamining.Web.Api
         #region Api lấy sử dụng luật: Khoa => Môn học vượt
         [Route("getall")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request,int idLoaiLuat, string keyword)
+        public HttpResponseMessage GetAll(HttpRequestMessage request,int idLoaiLuat)
         {
             return CreateHttpResponse(request, () =>
             {
                 int totalRow = 0;
-                var model = _luatXetTuyenService.GetAll(keyword);
+                var model = _luatService.GetAll(keyword);
                 totalRow = model.Count();
                 var query = model.OrderByDescending(x => x.X);
 
@@ -92,6 +93,7 @@ namespace Web_Datamining.Web.Api
             });
         }
         #endregion
+
         #region Hàm lấy ra danh sách các luật: Khoa => Môn học vượt
         public List<ClssRules> GetRulesXetTuyen(double sup, double con)
         {
