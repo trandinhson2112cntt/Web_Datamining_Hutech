@@ -135,7 +135,7 @@ namespace Web_Datamining.Web.Api
             return allRules;
         }
         #endregion
-        #region
+        #region Create Diem Tang Cai Thien Function
         [Route("CreateDiemTangCaiThien")]
         [HttpPost]
         [AllowAnonymous]
