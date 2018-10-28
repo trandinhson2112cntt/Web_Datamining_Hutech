@@ -55,7 +55,15 @@ namespace Web_Datamining.Web.App_Start
             builder.RegisterAssemblyTypes(typeof(LuatService).Assembly)
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
+            //Repositories
+            builder.RegisterAssemblyTypes(typeof(KhoaRepository).Assembly)
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces().InstancePerRequest();
 
+            // Services
+            builder.RegisterAssemblyTypes(typeof(KhoaService).Assembly)
+               .Where(t => t.Name.EndsWith("Service"))
+               .AsImplementedInterfaces().InstancePerRequest();
             Autofac.IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
