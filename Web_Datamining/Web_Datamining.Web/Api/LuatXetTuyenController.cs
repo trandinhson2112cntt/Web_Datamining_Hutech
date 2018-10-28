@@ -129,5 +129,173 @@ namespace Web_Datamining.Web.Api
             return allRules;
         }
         #endregion
+        //********************************************
+        #region Ham lay ra ds cac luat :Hoc ba: Nganh=> diem xet tuyen
+        public List<ClssRules> XTHocBa(double sup, double con)
+        {
+            //double minSupport = Double.Parse(formCollection["MinSupport"]);
+            //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
+            WebDbContext dbContext = new WebDbContext();
+            var dataListView = (from ds in dbContext.DSNguyenVongs
+                                where
+                                  ds.HoSoXetTuyen.DiemXetTuyen.HinhThucXetTuyen == false &&
+                                  ds.HoSoXetTuyen.TinhTrangTrungTuyen == 1
+                                select new
+                                {
+                                    ds.NganhTheoBo.TeNganh,
+                                    TongDiem = (ds.DiemTong < 30) ? (ds.DiemTong > 27) ? "[27..30]"
+                                     : (ds.DiemTong > 24) ? "[24..27]"
+                                    : (ds.DiemTong > 21) ? "[21..24]"
+                                    : (ds.DiemTong > 18) ? "[18..21]"
+                                    : (ds.DiemTong > 15) ? "[15..18]"
+                                    : "[0..15]" : ""
+                                }).ToList();
+            string result = "";
+            foreach (var item in dataListView)
+            {
+                db.Add(new clssItemSet()
+                {
+                   item.TeNganh,
+                   Convert.ToString(item.TongDiem)
+                });
+            }
+
+            clssItemSet uniqueItems = db.GetUniqueItems();
+            ClssItemCollection L = clssApriori.DoApriori(db, sup);
+            List<ClssRules> allRules = clssApriori.Mine(db, L, con);
+            result = "\n" + allRules.Count + " rules \n";
+
+            return allRules;
+        }
+        #endregion
+        #region Api tao ds luat : hoc ba: Nganh=>Diem xet tuyen
+        [Route("createxthb")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage CreateXTHB(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    List<ClssRules> allRules = XTHocBa(sup, con);
+                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
+                    foreach (var item in listLuatTheoIdLoaiLuat)
+                    {
+                        _luatService.DeleteItem(item);
+                    }
+                    _luatService.Save();
+                    //Đẩy danh sach các luật vào cơ sở dữ liệu
+                    foreach (ClssRules rule in allRules)
+                    {
+                        Luat luat = new Luat
+                        {
+                            X = rule.X.ToString(),
+                            Y = rule.Y.ToString(),
+                            Support = (decimal)rule.Support,
+                            Confidence = (decimal)rule.Confidence,
+                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
+                        };
+                        _luatService.Add(luat);
+                    }
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
+                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+                return response;
+            });
+        }
+        #endregion
+        //*****************
+        #region Ham lay ra ds cac luat :Thi Tuyen: Nganh=> diem xet tuyen
+        public List<ClssRules> ThiTuyen(double sup, double con)
+        {
+            //double minSupport = Double.Parse(formCollection["MinSupport"]);
+            //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
+            WebDbContext dbContext = new WebDbContext();
+            var dataListView = (from ds in dbContext.DSNguyenVongs
+                                where
+                                  ds.HoSoXetTuyen.DiemXetTuyen.HinhThucXetTuyen == false &&
+                                  ds.HoSoXetTuyen.TinhTrangTrungTuyen == 1
+                                select new
+                                {
+                                    ds.NganhTheoBo.TeNganh,
+                                    TongDiem = (ds.DiemTong < 30) ? (ds.DiemTong > 27) ? "[27..30]"
+                                     : (ds.DiemTong > 24) ? "[24..27]"
+                                    : (ds.DiemTong > 21) ? "[21..24]"
+                                    : (ds.DiemTong > 18) ? "[18..21]"
+                                    : (ds.DiemTong > 15) ? "[15..18]"
+                                    : "[0..15]":""
+                                }).ToList();
+            string result = "";
+            foreach (var item in dataListView)
+            {
+                db.Add(new clssItemSet()
+                {
+                   item.TeNganh,
+                   Convert.ToString(item.TongDiem)
+                });
+            }
+
+            clssItemSet uniqueItems = db.GetUniqueItems();
+            ClssItemCollection L = clssApriori.DoApriori(db, sup);
+            List<ClssRules> allRules = clssApriori.Mine(db, L, con);
+            result = "\n" + allRules.Count + " rules \n";
+
+            return allRules;
+        }
+        #endregion
+        #region Api tao ds luat : hoc ba: Nganh=>Diem xet tuyen
+        [Route("createthituyen")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage CreateThiTuyen(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    List<ClssRules> allRules = ThiTuyen(sup, con);
+                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
+                    foreach (var item in listLuatTheoIdLoaiLuat)
+                    {
+                        _luatService.DeleteItem(item);
+                    }
+                    _luatService.Save();
+                    //Đẩy danh sach các luật vào cơ sở dữ liệu
+                    foreach (ClssRules rule in allRules)
+                    {
+                        Luat luat = new Luat
+                        {
+                            X = rule.X.ToString(),
+                            Y = rule.Y.ToString(),
+                            Support = (decimal)rule.Support,
+                            Confidence = (decimal)rule.Confidence,
+                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
+                        };
+                        _luatService.Add(luat);
+                    }
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
+                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+                return response;
+            });
+        }
+        #endregion
     }
 }

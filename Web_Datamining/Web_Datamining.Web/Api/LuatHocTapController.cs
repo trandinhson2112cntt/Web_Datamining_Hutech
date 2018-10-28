@@ -136,6 +136,101 @@ namespace Web_Datamining.Web.Api
             return allRules;
         }
         #endregion
+        #region Ham lay ra danh sach cac luat:Khoa =>Mon cai thien
+        public List<ClssRules> LuatCaiThien(double sup, double con)
+        {
+            //double minSupport = Double.Parse(formCollection["MinSupport"]);
+            //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
+            WebDbContext dbContext = new WebDbContext();
+            var dataListView = (from a in (
+    (from dcthk in dbContext.DiemCTHKys
+     from sv in dbContext.SinhViens
+     where
+       dcthk.MSSV == sv.MSSV
+     select new
+     {
+         dcthk.MaMon,
+         dcthk.MSSV,
+         dcthk.DiemTKHe4,
+         dcthk.MonHoc.TenMon,
+         sv.Lop.Khoa.TenKhoa
+     }))
+                                group a by new
+                                {
+                                    a.MaMon,
+                                    a.MSSV,
+                                    a.TenMon,
+                                    a.TenKhoa
+                                } into g
+                                where g.Count() > 1
+                                select new
+                                {
+                                    g.Key.TenMon,
+                                    g.Key.TenKhoa
+                                }).ToList();
+            string result = "";
+            foreach (var item in dataListView)
+            {
+                db.Add(new clssItemSet()
+                {
+                    item.TenMon,
+                    item.TenKhoa
+                });
+            }
+
+            clssItemSet uniqueItems = db.GetUniqueItems();
+            ClssItemCollection L = clssApriori.DoApriori(db, sup);
+            List<ClssRules> allRules = clssApriori.Mine(db, L, con);
+            result = "\n" + allRules.Count + " rules \n";
+
+            return allRules;
+        }
+        #endregion
+        #region Api tao danh sach luat: Khoa =>Mon cai thien
+        [Route("createcaithien")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage CreateCaiThien(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    List<ClssRules> allRules = LuatCaiThien(sup, con);
+                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
+                    foreach (var item in listLuatTheoIdLoaiLuat)
+                    {
+                        _luatService.DeleteItem(item);
+                    }
+                    _luatService.Save();
+                    //Đẩy danh sach các luật vào cơ sở dữ liệu
+                    foreach (ClssRules rule in allRules)
+                    {
+                        Luat luat = new Luat
+                        {
+                            X = rule.X.ToString(),
+                            Y = rule.Y.ToString(),
+                            Support = (decimal)rule.Support,
+                            Confidence = (decimal)rule.Confidence,
+                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
+                        };
+                        _luatService.Add(luat);
+                    }
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
+                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+                return response;
+            });
+        }
+        #endregion
 
         //select distinct dcthk.MaMon
         //from ChuongTrinhDaoTao CTDT, MonHoc mh,SinhVien sv, DiemHocKy dhk, DiemCTHKy dcthk, Lop l,ChuyenNganh cn,
@@ -148,6 +243,6 @@ namespace Web_Datamining.Web.Api
         //                        from ChuongTrinhDaoTao ct
 
         //                        where ct.MaKhoa = k.MaKhoa and ct.ID_HocKi dcthk.ID_HocKi)
-     
+
     }
 }

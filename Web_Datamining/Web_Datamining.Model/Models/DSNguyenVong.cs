@@ -27,6 +27,9 @@ namespace Web_Datamining.Models
 
         [StringLength(10)]
         public string MaTDH { get; set; }
+        
+        public int DiemTong { get; set; }
+
 
         [StringLength(10)]
         public string TrangThaiNV { get; set; }
