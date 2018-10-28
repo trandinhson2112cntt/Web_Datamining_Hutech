@@ -137,17 +137,5 @@ namespace Web_Datamining.Web.Api
         }
         #endregion
 
-        //select distinct dcthk.MaMon
-        //from ChuongTrinhDaoTao CTDT, MonHoc mh,SinhVien sv, DiemHocKy dhk, DiemCTHKy dcthk, Lop l,ChuyenNganh cn,
-        //     Khoa k
-        //where k.TenKhoa like 'CNTT' and k.MaKhoa = cn.MaKhoa and cn.MaChuyenNganh = l.MaChuyenNganh and l.ID_Lop = sv.ID_Lop
-
-        //and dhk.MSSV = sv.MSSV and dcthk.MSSV = dhk.MSSV
-
-        //and dcthk.MaMon not in (select ct.MaMon
-        //                        from ChuongTrinhDaoTao ct
-
-        //                        where ct.MaKhoa = k.MaKhoa and ct.ID_HocKi dcthk.ID_HocKi)
-        
     }
 }
