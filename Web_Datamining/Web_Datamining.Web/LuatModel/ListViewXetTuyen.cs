@@ -13,6 +13,5 @@ namespace Web_Datamining.Web.LuatModel
         public string TinhTrangTrungTuyen { get; set; }
         public string TongDiem { get; set; }
         public string KhoaXetTuyen { get; set; }
-
     }
 }
