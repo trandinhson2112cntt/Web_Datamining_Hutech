@@ -22,6 +22,8 @@ namespace Web_Datamining.Service
 
         IEnumerable<Luat> GetAll(string keyword);
 
+        IEnumerable<Luat> GetAll(int idLoaiLuat);
+
         Luat GetById(int id);
 
         void Save();
@@ -66,6 +68,19 @@ namespace Web_Datamining.Service
             else
             {
                 return _LuatRepository.GetAll();
+            }
+        }
+
+        public IEnumerable<Luat> GetAll(int idLoaiLuat)
+        {
+            var listLuat = _LuatRepository.GetMulti(x => x.LuatId == idLoaiLuat);
+            if (listLuat == null)
+            {
+                return _LuatRepository.GetAll();
+            }
+            else
+            {
+                return listLuat;
             }
         }
 

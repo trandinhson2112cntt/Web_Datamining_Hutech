@@ -12,7 +12,10 @@ namespace Web_Datamining.Web.Mappings
     {
         public static void Configure()
         {
-            //Mapper.CreateMap<LuatXetTuyen, LuatXetTuyenViewModel>();
+            Mapper.CreateMap<Luat, LuatViewModel>();
+            Mapper.CreateMap<Khoa, KhoaViewModel>();
+            Mapper.CreateMap<MonHoc, MonHocViewModel>();
+
         }
     }
 }

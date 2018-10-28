@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using Web_Datamining.Models;
-using Web_Datamining.Web.Infrastructure.Core;
-using Web_Datamining.Web.LuatModel;
-using Web_Datamining.Web.Models;
+using System.Web;
+using System.Web.Mvc;
 using Web_Datamining.Data;
+using Web_Datamining.Models;
 using Web_Datamining.Service;
+using Web_Datamining.Web.Infrastructure.Core;
+using Web_Datamining.Web.Models;
 
 namespace Web_Datamining.Web.Api
 {
-    [RoutePrefix("api/luatxettuyen")]
+    [RoutePrefix("api/luatphongdaotao")]
     [AllowCrossSiteJson]
-    public class LuatXetTuyenController : ApiControllerBase
+    public class LuatPhongDaoTaoController : ApiControllerBase
     {
         #region Contructor
         private ILuatService _luatService;
-        public LuatXetTuyenController(IErrorService errorService, ILuatService luatService) : base(errorService)
+        public LuatPhongDaoTaoController(IErrorService errorService, ILuatService luatService) : base(errorService)
         {
             this._luatService = luatService;
         }
@@ -28,7 +28,7 @@ namespace Web_Datamining.Web.Api
         ClssItemCollection db = new ClssItemCollection();
         #endregion
 
-        #region Api tạo danh sach luật: Hình thức xét tuyển => Khu vực
+        #region Api tạo danh sach luật: Nhập học + Đậu => Khu vực
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
@@ -43,7 +43,7 @@ namespace Web_Datamining.Web.Api
                 }
                 else
                 {
-                    List<ClssRules> allRules = GetRulesXetTuyen(sup, con);
+                    List<ClssRules> allRules = GetRulesNhapHocDau_KhuVuc(sup, con);
                     //Xóa những dữ liệu luật cũ theo idLoaiLuat
                     var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
                     foreach (var item in listLuatTheoIdLoaiLuat)
@@ -74,7 +74,8 @@ namespace Web_Datamining.Web.Api
         }
         #endregion
 
-        #region Api lấy sử dụng luật: Hình thức xét tuyển => Khu vực
+        #region Api lấy sử dụng luật: Nhập học + Đậu => Khu vực
+
         [Route("getall")]
         [HttpGet]
         public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
@@ -94,30 +95,59 @@ namespace Web_Datamining.Web.Api
         }
         #endregion
 
-        #region Hàm lấy ra danh sách các luật: Hình thức xét tuyển => Khu vực
-        public List<ClssRules> GetRulesXetTuyen(double sup, double con)
+        #region Hàm lấy ra danh sách các luật: Nhập học + Đậu => Khu vực
+
+        public List<ClssRules> GetRulesNhapHocDau_KhuVuc(double sup, double con)
         {
             //double minSupport = Double.Parse(formCollection["MinSupport"]);
             //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
             WebDbContext dbContext = new WebDbContext();
-            var dataListView = (from HoSoXetTuyens in dbContext.HoSoXetTuyens
-                               from Tinhs in dbContext.Tinhs
-                               where
-                                 HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh
-                               select new
-                               {
-                                   HoSoXetTuyens.CMDN,
-                                   HoSoXetTuyens.TruongTHPT.TenTruong,
-                                   Tinhs.TenTinh,
-                                   HinhThucXetTuyen = (bool?)HoSoXetTuyens.DiemXetTuyen.HinhThucXetTuyen
-                               }).ToList();
+            var dataListView = ((
+    from HoSoXetTuyens in dbContext.HoSoXetTuyens
+    from Tinhs in dbContext.Tinhs
+    where
+      HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh &&
+      HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
+        (from SinhViens in dbContext.SinhViens
+         select new
+         {
+             SinhViens.MaHoSo
+         }).Contains(new { MaHoSo = HoSoXetTuyens.MaHoSo })
+    select new
+    {
+        HoSoXetTuyens.CMDN,
+        TinhTrangTrungTuyen = (int?)HoSoXetTuyens.TinhTrangTrungTuyen,
+        Tinhs.TenTinh,
+        TinhTrang = "Nhập học"
+    }
+).Union
+(
+    from HoSoXetTuyens in dbContext.HoSoXetTuyens
+    from Tinhs in dbContext.Tinhs
+    where
+      HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh &&
+      HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
+      !
+        (from SinhViens in dbContext.SinhViens
+         select new
+         {
+             SinhViens.MaHoSo
+         }).Contains(new { MaHoSo = HoSoXetTuyens.MaHoSo })
+    select new
+    {
+        CMDN = HoSoXetTuyens.CMDN,
+        TinhTrangTrungTuyen = (int?)HoSoXetTuyens.TinhTrangTrungTuyen,
+        TenTinh = Tinhs.TenTinh,
+        TinhTrang = "Không nhập học"
+    }
+)).ToList();
             string result = "";
             foreach (var item in dataListView)
             {
                 db.Add(new clssItemSet()
                 {
-                    (item.HinhThucXetTuyen == true ? "Thi tuyển" : "Học bạ"),
-                    item.TenTinh
+                    item.TenTinh,
+                    item.TinhTrang
                 });
             }
 
@@ -129,5 +159,7 @@ namespace Web_Datamining.Web.Api
             return allRules;
         }
         #endregion
+
+        
     }
 }
