@@ -231,5 +231,50 @@ namespace Web_Datamining.Web.Api
             return allRules;
         }
         #endregion
+        #region Hàm lấy ra danh sách các luật: Môn học vượt => điểm tăng
+        public List<ClssRules> GetRulesHocVuot(double sup, double con)
+        {
+
+            WebDbContext dbContext = new WebDbContext();
+            var dataListView = ((from CTDT in dbContext.ChuongTrinhDaoTaos
+                                  from dcthk in dbContext.DiemCTHKys
+                                  where
+                                    !
+                                      (from ct in dbContext.ChuongTrinhDaoTaos
+                                       where
+       ct.MaKhoa == dcthk.DiemHocKy.SinhVien.Lop.ChuyenNganh.Khoa.MaKhoa &&
+       ct.ID_HocKi == dcthk.ID_HocKi
+                                       select new
+                                       {
+                                           ct.MaMon
+                                       }).Contains(new { MaMon = dcthk.MaMon })
+                                  select new
+                                  {
+                                      dcthk.MaMon,
+                                      dcthk.DiemHocKy.SinhVien.MSSV,
+                                      dcthk.DiemTKHe10,
+                                      dcthk.MonHoc.TenMon,
+                                      dcthk.ID_HocKi
+                                  })).Distinct().ToList();
+            string result = "";
+            foreach (var item in dataListView)
+            {
+                db.Add(new clssItemSet()
+                {
+                    item.TenMon,
+                    item.DiemTKHe10.ToString()
+
+                });
+            }
+
+            clssItemSet uniqueItems = db.GetUniqueItems();
+            ClssItemCollection L = clssApriori.DoApriori(db, sup);
+            List<ClssRules> allRules = clssApriori.Mine(db, L, con);
+            result = "\n" + allRules.Count + " rules \n";
+
+            return allRules;
+        }
+        #endregion
+
     }
 }
