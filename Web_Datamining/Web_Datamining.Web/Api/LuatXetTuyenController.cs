@@ -5,12 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Web_Datamining.Models;
-using Web_Datamining.Web.Infrastructure.Core;
-using Web_Datamining.Web.LuatModel;
-using Web_Datamining.Web.Models;
 using Web_Datamining.Data;
+using Web_Datamining.Models;
 using Web_Datamining.Service;
+using Web_Datamining.Web.Infrastructure.Core;
+using Web_Datamining.Web.Models;
 
 namespace Web_Datamining.Web.Api
 {
@@ -19,16 +18,45 @@ namespace Web_Datamining.Web.Api
     public class LuatXetTuyenController : ApiControllerBase
     {
         #region Contructor
+
         private ILuatService _luatService;
+
         public LuatXetTuyenController(IErrorService errorService, ILuatService luatService) : base(errorService)
         {
             this._luatService = luatService;
         }
+
         //Db classitem hỗ trợ thuật toán apriori
-        ClssItemCollection db = new ClssItemCollection();
-        #endregion
+        private ClssItemCollection db = new ClssItemCollection();
+
+        #endregion Contructor
+
+        #region Api lấy sử dụng luật
+
+        [Route("getall")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat, string keyword)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var model = _luatService.GetAll(idLoaiLuat, keyword);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.X);
+
+                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        #endregion Api lấy sử dụng luật
+
+        //********************************************
 
         #region Api tạo danh sach luật: Hình thức xét tuyển => Khu vực
+
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
@@ -72,45 +100,27 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
 
-        #region Api lấy sử dụng luật: Hình thức xét tuyển => Khu vực
-        [Route("getall")]
-        [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                int totalRow = 0;
-                var model = _luatService.GetAll(idLoaiLuat);
-                totalRow = model.Count();
-                var query = model.OrderByDescending(x => x.X);
-
-                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
-
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                return response;
-            });
-        }
-        #endregion
+        #endregion Api tạo danh sach luật: Hình thức xét tuyển => Khu vực
 
         #region Hàm lấy ra danh sách các luật: Hình thức xét tuyển => Khu vực
+
         public List<ClssRules> GetRulesXetTuyen(double sup, double con)
         {
             //double minSupport = Double.Parse(formCollection["MinSupport"]);
             //double minConfidence = Double.Parse(formCollection["MinConfidence"]);
             WebDbContext dbContext = new WebDbContext();
             var dataListView = (from HoSoXetTuyens in dbContext.HoSoXetTuyens
-                               from Tinhs in dbContext.Tinhs
-                               where
-                                 HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh
-                               select new
-                               {
-                                   HoSoXetTuyens.CMDN,
-                                   HoSoXetTuyens.TruongTHPT.TenTruong,
-                                   Tinhs.TenTinh,
-                                   HinhThucXetTuyen = (bool?)HoSoXetTuyens.DiemXetTuyen.HinhThucXetTuyen
-                               }).ToList();
+                                from Tinhs in dbContext.Tinhs
+                                where
+                                  HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh
+                                select new
+                                {
+                                    HoSoXetTuyens.CMDN,
+                                    HoSoXetTuyens.TruongTHPT.TenTruong,
+                                    Tinhs.TenTinh,
+                                    HinhThucXetTuyen = (bool?)HoSoXetTuyens.DiemXetTuyen.HinhThucXetTuyen
+                                }).ToList();
             string result = "";
             foreach (var item in dataListView)
             {
@@ -128,9 +138,13 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
+
+        #endregion Hàm lấy ra danh sách các luật: Hình thức xét tuyển => Khu vực
+
         //********************************************
+
         #region Ham lay ra ds cac luat :Hoc ba: Nganh=> diem xet tuyen
+
         public List<ClssRules> XTHocBa(double sup, double con)
         {
             //double minSupport = Double.Parse(formCollection["MinSupport"]);
@@ -167,8 +181,11 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
+
+        #endregion Ham lay ra ds cac luat :Hoc ba: Nganh=> diem xet tuyen
+
         #region Api tao ds luat : hoc ba: Nganh=>Diem xet tuyen
+
         [Route("createxthb")]
         [HttpPost]
         [AllowAnonymous]
@@ -212,9 +229,13 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
+
+        #endregion Api tao ds luat : hoc ba: Nganh=>Diem xet tuyen
+
         //*****************
+
         #region Ham lay ra ds cac luat :Thi Tuyen: Nganh=> diem xet tuyen
+
         public List<ClssRules> ThiTuyen(double sup, double con)
         {
             //double minSupport = Double.Parse(formCollection["MinSupport"]);
@@ -232,7 +253,7 @@ namespace Web_Datamining.Web.Api
                                     : (ds.DiemTong > 21) ? "[21..24]"
                                     : (ds.DiemTong > 18) ? "[18..21]"
                                     : (ds.DiemTong > 15) ? "[15..18]"
-                                    : "[0..15]":""
+                                    : "[0..15]" : ""
                                 }).ToList();
             string result = "";
             foreach (var item in dataListView)
@@ -251,8 +272,11 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
+
+        #endregion Ham lay ra ds cac luat :Thi Tuyen: Nganh=> diem xet tuyen
+
         #region Api tao ds luat : hoc ba: Nganh=>Diem xet tuyen
+
         [Route("createthituyen")]
         [HttpPost]
         [AllowAnonymous]
@@ -296,6 +320,7 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
+
+        #endregion Api tao ds luat : hoc ba: Nganh=>Diem xet tuyen
     }
 }

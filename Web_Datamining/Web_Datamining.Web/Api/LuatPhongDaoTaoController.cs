@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
 using Web_Datamining.Data;
 using Web_Datamining.Models;
@@ -19,16 +17,43 @@ namespace Web_Datamining.Web.Api
     public class LuatPhongDaoTaoController : ApiControllerBase
     {
         #region Contructor
+
         private ILuatService _luatService;
+
         public LuatPhongDaoTaoController(IErrorService errorService, ILuatService luatService) : base(errorService)
         {
             this._luatService = luatService;
         }
+
         //Db classitem hỗ trợ thuật toán apriori
-        ClssItemCollection db = new ClssItemCollection();
-        #endregion
+        private ClssItemCollection db = new ClssItemCollection();
+
+        #endregion Contructor
+
+        #region Api lấy sử dụng luật: Nhập học + Đậu => Khu vực
+
+        [Route("getall")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var model = _luatService.GetAll(idLoaiLuat);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.X);
+
+                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        #endregion Api lấy sử dụng luật: Nhập học + Đậu => Khu vực
 
         #region Api tạo danh sach luật: Nhập học + Đậu => Khu vực
+
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
@@ -72,28 +97,8 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
 
-        #region Api lấy sử dụng luật: Nhập học + Đậu => Khu vực
-
-        [Route("getall")]
-        [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                int totalRow = 0;
-                var model = _luatService.GetAll(idLoaiLuat);
-                totalRow = model.Count();
-                var query = model.OrderByDescending(x => x.X);
-
-                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
-
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                return response;
-            });
-        }
-        #endregion
+        #endregion Api tạo danh sach luật: Nhập học + Đậu => Khu vực
 
         #region Hàm lấy ra danh sách các luật: Nhập học + Đậu => Khu vực
 
@@ -158,8 +163,7 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
 
-        
+        #endregion Hàm lấy ra danh sách các luật: Nhập học + Đậu => Khu vực
     }
 }

@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Web_Datamining.Models;
-using Web_Datamining.Web.Infrastructure.Core;
-using Web_Datamining.Web.LuatModel;
-using Web_Datamining.Web.Models;
 using Web_Datamining.Data;
+using Web_Datamining.Models;
 using Web_Datamining.Service;
+using Web_Datamining.Web.Infrastructure.Core;
+using Web_Datamining.Web.Models;
 
 namespace Web_Datamining.Web.Api
 {
@@ -19,16 +17,45 @@ namespace Web_Datamining.Web.Api
     public class LuatHocTapController : ApiControllerBase
     {
         #region Contructor
+
         private ILuatService _luatService;
+
         public LuatHocTapController(IErrorService errorService, ILuatService luatService) : base(errorService)
         {
             this._luatService = luatService;
         }
+
         //Db classitem hỗ trợ thuật toán apriori
-        ClssItemCollection db = new ClssItemCollection();
-        #endregion
+        private ClssItemCollection db = new ClssItemCollection();
+
+        #endregion Contructor
+
+        #region Api lấy sử dụng luật
+
+        [Route("getall")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat, string keyword)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var model = _luatService.GetAll(idLoaiLuat, keyword);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.X);
+
+                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        #endregion Api lấy sử dụng luật
+
+        //********************************************
 
         #region Api tạo danh sach luật: Khoa => Môn học vượt
+
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
@@ -72,32 +99,13 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
 
-        #region Api lấy sử dụng luật: Khoa => Môn học vượt
-        [Route("getall")]
-        [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                int totalRow = 0;
-                var model = _luatService.GetAll(idLoaiLuat);
-                totalRow = model.Count();
-                var query = model.OrderByDescending(x => x.X);
-
-                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
-
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                return response;
-            });
-        }
-        #endregion
+        #endregion Api tạo danh sach luật: Khoa => Môn học vượt
 
         #region Hàm lấy ra danh sách các luật: Khoa => Môn học vượt
+
         public List<ClssRules> GetRulesXetTuyen(double sup, double con)
         {
-
             WebDbContext dbContext = new WebDbContext();
             var dataListView = (from CTDT in dbContext.ChuongTrinhDaoTaos
                                 from dcthk in dbContext.DiemCTHKys
@@ -134,53 +142,13 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
-        #region Create Diem Tang Cai Thien Function
-        [Route("CreateDiemTangCaiThien")]
-        [HttpPost]
-        [AllowAnonymous]
-        public HttpResponseMessage CreateDiemTangCaiThien(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                if (!ModelState.IsValid)
-                {
-                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    List<ClssRules> allRules = GetRulesHocCaiThien(sup, con);
-                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
-                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
-                    foreach (var item in listLuatTheoIdLoaiLuat)
-                    {
-                        _luatService.DeleteItem(item);
-                    }
-                    _luatService.Save();
-                    //Đẩy danh sach các luật vào cơ sở dữ liệu
-                    foreach (ClssRules rule in allRules)
-                    {
-                        Luat luat = new Luat
-                        {
-                            X = rule.X.ToString(),
-                            Y = rule.Y.ToString(),
-                            Support = (decimal)rule.Support,
-                            Confidence = (decimal)rule.Confidence,
-                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
-                        };
-                        _luatService.Add(luat);
-                    }
-                    _luatService.Save();
-                    var newListLuat = _luatService.GetAll(idLoaiLuat);
-                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
-                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
-                }
-                return response;
-            });
-        }
-        #endregion
+
+        #endregion Hàm lấy ra danh sách các luật: Khoa => Môn học vượt
+
+        //********************************************
+
         #region Ham lay ra danh sach cac luat:Khoa =>Mon cai thien
+
         public List<ClssRules> LuatCaiThien(double sup, double con)
         {
             //double minSupport = Double.Parse(formCollection["MinSupport"]);
@@ -229,8 +197,11 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
+
+        #endregion Ham lay ra danh sach cac luat:Khoa =>Mon cai thien
+
         #region Api tao danh sach luat: Khoa =>Mon cai thien
+
         [Route("createcaithien")]
         [HttpPost]
         [AllowAnonymous]
@@ -274,12 +245,63 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
+
+        #endregion Api tao danh sach luat: Khoa =>Mon cai thien
+
+        //********************************************
+
+        #region Api tạo danh sach luật: Môn học cải thiện => Điểm tăng
+
+        [Route("CreateDiemTangCaiThien")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage CreateDiemTangCaiThien(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    List<ClssRules> allRules = GetRulesHocCaiThien(sup, con);
+                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
+                    foreach (var item in listLuatTheoIdLoaiLuat)
+                    {
+                        _luatService.DeleteItem(item);
+                    }
+                    _luatService.Save();
+                    //Đẩy danh sach các luật vào cơ sở dữ liệu
+                    foreach (ClssRules rule in allRules)
+                    {
+                        Luat luat = new Luat
+                        {
+                            X = rule.X.ToString(),
+                            Y = rule.Y.ToString(),
+                            Support = (decimal)rule.Support,
+                            Confidence = (decimal)rule.Confidence,
+                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
+                        };
+                        _luatService.Add(luat);
+                    }
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
+                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+                return response;
+            });
+        }
+
+        #endregion Api tạo danh sach luật: Môn học cải thiện => Điểm tăng
 
         #region Hàm lấy ra danh sách các luật: Môn cải thiện => điểm tăng
+
         public List<ClssRules> GetRulesHocCaiThien(double sup, double con)
         {
-
             WebDbContext dbContext = new WebDbContext();
             var dataListView = ((from a in (
     (from dcthk in dbContext.DiemCTHKys
@@ -314,7 +336,6 @@ namespace Web_Datamining.Web.Api
                 {
                     item.TenMon,
                     item.chechlech.ToString()
-
                 });
             }
 
@@ -325,32 +346,84 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
+
+        #endregion Hàm lấy ra danh sách các luật: Môn cải thiện => điểm tăng
+
+        //********************************************
+
+        #region Api tạo danh sach luật: Môn học vượt => Điểm tăng
+
+        [Route("CreateDiemTangHocVuot")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage CreateDiemTangHocVuot(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    List<ClssRules> allRules = GetRulesHocVuot(sup, con);
+                    //Xóa những dữ liệu luật cũ theo idLoaiLuat
+                    var listLuatTheoIdLoaiLuat = _luatService.GetAll(idLoaiLuat);
+                    foreach (var item in listLuatTheoIdLoaiLuat)
+                    {
+                        _luatService.DeleteItem(item);
+                    }
+                    _luatService.Save();
+                    //Đẩy danh sach các luật vào cơ sở dữ liệu
+                    foreach (ClssRules rule in allRules)
+                    {
+                        Luat luat = new Luat
+                        {
+                            X = rule.X.ToString(),
+                            Y = rule.Y.ToString(),
+                            Support = (decimal)rule.Support,
+                            Confidence = (decimal)rule.Confidence,
+                            LuatId = idLoaiLuat //Thêm loại luật để phân biệt giữa các luật
+                        };
+                        _luatService.Add(luat);
+                    }
+                    _luatService.Save();
+                    var newListLuat = _luatService.GetAll(idLoaiLuat);
+                    var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(newListLuat);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+                return response;
+            });
+        }
+
+        #endregion Api tạo danh sach luật: Môn học vượt => Điểm tăng
+
         #region Hàm lấy ra danh sách các luật: Môn học vượt => điểm tăng
+
         public List<ClssRules> GetRulesHocVuot(double sup, double con)
         {
-
             WebDbContext dbContext = new WebDbContext();
             var dataListView = ((from CTDT in dbContext.ChuongTrinhDaoTaos
-                                  from dcthk in dbContext.DiemCTHKys
-                                  where
-                                    !
-                                      (from ct in dbContext.ChuongTrinhDaoTaos
-                                       where
-       ct.MaKhoa == dcthk.DiemHocKy.SinhVien.Lop.ChuyenNganh.Khoa.MaKhoa &&
-       ct.ID_HocKi == dcthk.ID_HocKi
-                                       select new
-                                       {
-                                           ct.MaMon
-                                       }).Contains(new { MaMon = dcthk.MaMon })
-                                  select new
-                                  {
-                                      dcthk.MaMon,
-                                      dcthk.DiemHocKy.SinhVien.MSSV,
-                                      dcthk.DiemTKHe10,
-                                      dcthk.MonHoc.TenMon,
-                                      dcthk.ID_HocKi
-                                  })).Distinct().ToList();
+                                 from dcthk in dbContext.DiemCTHKys
+                                 where
+                                   !
+                                     (from ct in dbContext.ChuongTrinhDaoTaos
+                                      where
+      ct.MaKhoa == dcthk.DiemHocKy.SinhVien.Lop.ChuyenNganh.Khoa.MaKhoa &&
+      ct.ID_HocKi == dcthk.ID_HocKi
+                                      select new
+                                      {
+                                          ct.MaMon
+                                      }).Contains(new { MaMon = dcthk.MaMon })
+                                 select new
+                                 {
+                                     dcthk.MaMon,
+                                     dcthk.DiemHocKy.SinhVien.MSSV,
+                                     dcthk.DiemTKHe10,
+                                     dcthk.MonHoc.TenMon,
+                                     dcthk.ID_HocKi
+                                 })).Distinct().ToList();
             string result = "";
             foreach (var item in dataListView)
             {
@@ -358,7 +431,6 @@ namespace Web_Datamining.Web.Api
                 {
                     item.TenMon,
                     item.DiemTKHe10.ToString()
-
                 });
             }
 
@@ -369,7 +441,9 @@ namespace Web_Datamining.Web.Api
 
             return allRules;
         }
-        #endregion
 
+        #endregion Hàm lấy ra danh sách các luật: Môn học vượt => điểm tăng
+
+        //********************************************
     }
 }

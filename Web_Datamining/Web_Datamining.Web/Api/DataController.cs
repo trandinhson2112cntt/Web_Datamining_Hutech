@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
 using Web_Datamining.Models;
 using Web_Datamining.Service;
@@ -18,16 +16,20 @@ namespace Web_Datamining.Web.Api
     public class DataController : ApiControllerBase
     {
         #region Contructor
+
         private IKhoaService _khoaService;
         private IMonHocService _monHocService;
-        public DataController(IErrorService errorService, IKhoaService khoaService,IMonHocService monHocService) : base(errorService)
+
+        public DataController(IErrorService errorService, IKhoaService khoaService, IMonHocService monHocService) : base(errorService)
         {
             this._khoaService = khoaService;
             this._monHocService = monHocService;
         }
-        #endregion
+
+        #endregion Contructor
 
         #region Api lấy sử dụng lấy danh sách tất cả các khoa
+
         [Route("getallkhoa")]
         [HttpGet]
         public HttpResponseMessage GetAllKhoa(HttpRequestMessage request)
@@ -45,9 +47,11 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
+
+        #endregion Api lấy sử dụng lấy danh sách tất cả các khoa
 
         #region Api lấy sử dụng lấy danh sách tất cả các môn học
+
         [Route("getallmonhoc")]
         [HttpGet]
         public HttpResponseMessage GetAllMonHoc(HttpRequestMessage request)
@@ -65,7 +69,7 @@ namespace Web_Datamining.Web.Api
                 return response;
             });
         }
-        #endregion
 
+        #endregion Api lấy sử dụng lấy danh sách tất cả các môn học
     }
 }
