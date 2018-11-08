@@ -34,12 +34,12 @@ namespace Web_Datamining.Web.Api
 
         [Route("getall")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat, string keyword)
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int idLoaiLuat)
         {
             return CreateHttpResponse(request, () =>
             {
                 int totalRow = 0;
-                var model = _luatService.GetAll(idLoaiLuat, keyword);
+                var model = _luatService.GetAll(idLoaiLuat);
                 totalRow = model.Count();
                 var query = model.OrderByDescending(x => x.X);
 
@@ -57,7 +57,7 @@ namespace Web_Datamining.Web.Api
         #region Api tạo danh sach luật: Khoa => Môn học vượt
 
         [Route("create")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Create(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
         {
@@ -203,7 +203,7 @@ namespace Web_Datamining.Web.Api
         #region Api tao danh sach luat: Khoa =>Mon cai thien
 
         [Route("createcaithien")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage CreateCaiThien(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
         {
@@ -253,7 +253,7 @@ namespace Web_Datamining.Web.Api
         #region Api tạo danh sach luật: Môn học cải thiện => Điểm tăng
 
         [Route("CreateDiemTangCaiThien")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage CreateDiemTangCaiThien(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
         {
@@ -354,7 +354,7 @@ namespace Web_Datamining.Web.Api
         #region Api tạo danh sach luật: Môn học vượt => Điểm tăng
 
         [Route("CreateDiemTangHocVuot")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage CreateDiemTangHocVuot(HttpRequestMessage request, int idLoaiLuat, double sup, double con)
         {
