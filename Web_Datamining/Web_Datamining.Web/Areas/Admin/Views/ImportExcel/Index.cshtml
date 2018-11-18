@@ -5,13 +5,13 @@
 <h3>Add Students via Excel</h3> 
 <h4>@ViewBag.ErrorMessage </h4>
 <hr />  
-@using (Html.BeginForm("UploadExcel", "ImportExcel", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return myFunction()" }))  
+@using (Html.BeginForm("UploadExcelSinhVien", "ImportExcel", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return myFunction()" }))  
 {  
     <div class="form-horizontal">  
         <div class="form-group">  
             <div class="control-label col-md-2">Download Format:</div>  
             <div class="col-md-10">  
-                <a href="/ImportExcel/Downloa=dExcel/"><img src="~/excel.ico" width="25" height="25" title="Download Excel format" alt="excel" /></a>  
+                <a href="/ImportExcel/DownloadExcelSinhVienFormat/"><img src="~/Images/excel.ico" width="25" height="25" title="Download Excel format" alt="excel" /></a>  
             </div>  
         </div>  
 

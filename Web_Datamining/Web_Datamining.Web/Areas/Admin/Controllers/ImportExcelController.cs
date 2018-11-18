@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using Web_Datamining.Data;
 using Web_Datamining.Models;
 
-namespace Web_Datamining.Web.Controllers
+namespace Web_Datamining.Web.Areas.Admin.Controllers
 {
     public class ImportExcelController : Controller
     {
@@ -19,13 +19,13 @@ namespace Web_Datamining.Web.Controllers
             return View();
         }
         // GET: ImportExcel
-        public FileResult DowloadExcel()
+        public FileResult DownloadExcelSinhVienForMat()
         {
             string path = "/ExcelFormat/Students.xlsx";
             return File(path, "application/vnd.ms-excel", "Students.xlsx");
         }
         [HttpPost]
-        public JsonResult UploadExcel(SinhVien students, HttpPostedFileBase FileUpload)
+        public JsonResult UploadExcelSinhVien(SinhVien students, HttpPostedFileBase FileUpload)
         {
             WebDbContext db = new WebDbContext();
             List<string> data = new List<string>();
@@ -34,8 +34,6 @@ namespace Web_Datamining.Web.Controllers
                 // tdata.ExecuteCommand("truncate table OtherCompanyAssets");  
                 if (FileUpload.ContentType == "application/vnd.ms-excel" || FileUpload.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 {
-
-
                     string filename = FileUpload.FileName;
                     string targetpath = Server.MapPath("~/ExcelFormat/");
                     FileUpload.SaveAs(targetpath + filename);
@@ -72,11 +70,12 @@ namespace Web_Datamining.Web.Controllers
                     {
                         try
                         {
-                            if (a.MSSV != "" && a.MaHoSo == 0 && a.ID_Lop == 0)
+                            if (a.MSSV != "" && a.MaHoSo != 0 && a.ID_Lop != 0)
                             {
                                 SinhVien TU = new SinhVien();
                                 TU.MSSV = a.MSSV;
                                 TU.MaHoSo = a.MaHoSo;
+                                TU.CoVanHocTap = a.CoVanHocTap;
                                 TU.ID_Lop = a.ID_Lop;
                                 db.SinhViens.Add(TU);
                                 db.SaveChanges();
@@ -118,7 +117,7 @@ namespace Web_Datamining.Web.Controllers
                 {
                     //alert message for invalid file format  
                     data.Add("<ul>");
-                    data.Add("<li>Only Excel file format is allowed</li>");
+                    data.Add("<li> Only Excel file format is allowed </li>");
                     data.Add("</ul>");
                     data.ToArray();
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -127,7 +126,7 @@ namespace Web_Datamining.Web.Controllers
             else
             {
                 data.Add("<ul>");
-                if (FileUpload == null) data.Add("<li>Please choose Excel file</li>");
+                if (FileUpload == null) data.Add("<li> Please choose Excel file </li>");
                 data.Add("</ul>");
                 data.ToArray();
                 return Json(data, JsonRequestBehavior.AllowGet);

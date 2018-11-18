@@ -227,6 +227,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoSoXetTuyensController.cs" />
     <Compile Include="Areas\Admin\Controllers\HuyensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoaHocsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoasController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopsController.cs" />
@@ -246,7 +247,6 @@
     <Compile Include="Apriori\clssItemSet.cs" />
     <Compile Include="Apriori\ClssRules.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImportExcelController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -296,6 +296,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\excel.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -438,7 +439,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\ImportExcel\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
