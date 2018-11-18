@@ -52,6 +52,47 @@ namespace Web_Datamining.Web.Api
 
         #endregion Api lấy sử dụng luật: Nhập học + Đậu => Khu vực
 
+        #region Api tìm kiếm luật xét tuyển
+
+        [Route("findrules")]
+        [HttpGet]
+        public HttpResponseMessage FindRules(HttpRequestMessage request, int idLoaiLuat, string keyword)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var model = _luatService.GetAll(idLoaiLuat, keyword);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.X);
+
+                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        #endregion Api tìm kiếm luật xét tuyển
+
+        #region Api Xóa luật
+
+        [Route("deleterule")]
+        [HttpGet]
+        public HttpResponseMessage DeleteRule(HttpRequestMessage request, int keyword)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var item = _luatService.GetById(keyword);
+                var model = _luatService.DeleteItem(item);
+                _luatService.Save();
+
+                var response = request.CreateResponse(HttpStatusCode.OK, "Xóa thành công");
+                return response;
+            });
+        }
+
+        #endregion Api xóa luật
+
         #region Api tạo danh sach luật: Nhập học + Đậu => Khu vực
 
         [Route("createkhuvucnhaphoc")]
