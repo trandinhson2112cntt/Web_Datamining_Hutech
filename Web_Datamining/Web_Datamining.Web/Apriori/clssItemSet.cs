@@ -35,7 +35,7 @@ namespace Web_Datamining.Web
 
         public override string ToString()
         {
-            return ("{" + string.Join(", ", this.ToArray()) + "}" + (this.Support > 0 ? " (support: " + Math.Round(this.Support, 2) + "%)" : string.Empty));
+            return (string.Join(", ", this.ToArray()) + (this.Support > 0 ? " (support: " + Math.Round(this.Support, 2) + "%)" : string.Empty));
         }
 
 

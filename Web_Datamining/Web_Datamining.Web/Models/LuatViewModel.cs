@@ -18,3 +18,4 @@ namespace Web_Datamining.Web.Models
         public decimal? Confidence { get; set; }
     }
 }
+
