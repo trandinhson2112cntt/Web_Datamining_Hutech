@@ -25,7 +25,7 @@ namespace Web_Datamining.Web.Areas.Admin.Controllers
             return File(path, "application/vnd.ms-excel", "Students.xlsx");
         }
         [HttpPost]
-        public JsonResult UploadExcelSinhVien(SinhVien students, HttpPostedFileBase FileUpload)
+        public ActionResult UploadExcelSinhVien(SinhVien students, HttpPostedFileBase FileUpload)
         {
             WebDbContext db = new WebDbContext();
             List<string> data = new List<string>();
@@ -111,7 +111,7 @@ namespace Web_Datamining.Web.Areas.Admin.Controllers
                     {
                         System.IO.File.Delete(pathToExcelFile);
                     }
-                    return Json("success", JsonRequestBehavior.AllowGet);
+                    return RedirectToAction("Index","SinhViens");
                 }
                 else
                 {
