@@ -17,7 +17,7 @@ namespace Web_Datamining.Web
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces:new string[] { "Web_Datamining.Web.Controllers" }
+                namespaces:new string[] { "Web_Datamining.Web.Areas.Admin.Controllers" }
             );
         }
     }

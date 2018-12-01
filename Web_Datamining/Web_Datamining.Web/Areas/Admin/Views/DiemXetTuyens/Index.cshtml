@@ -6,7 +6,7 @@
 }
 
 <h2>Điểm Xét Tuyển</h2>
-
+@Html.Partial("~/Areas/Admin/Views/ImportExcel/_ImportDiemXetTuyen.cshtml")
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -15,6 +15,7 @@
         <th>
             @Html.DisplayNameFor(model => model.DiemToan)
         </th>
+        <a href="~/Areas/Admin/Views/MonHocs/Index.cshtml">~/Areas/Admin/Views/MonHocs/Index.cshtml</a>
         <th>
             @Html.DisplayNameFor(model => model.DiemVan)
         </th>
@@ -42,41 +43,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemToan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemVan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemLy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemHoa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemSinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemDia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemGDCD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemNN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HinhThucXetTuyen)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DXT_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DXT_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DXT_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemVan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemLy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemHoa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemSinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemDia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemGDCD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemNN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HinhThucXetTuyen)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DXT_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.DXT_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DXT_ID })
+            </td>
+        </tr>
+    }
 
 </table>

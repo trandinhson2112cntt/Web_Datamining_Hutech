@@ -6,7 +6,7 @@
 }
 
 <h2>Môn Học</h2>
-
+@Html.Partial("~/Areas/Admin/Views/ImportExcel/_ImportMonHoc.cshtml")
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -24,23 +24,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenMon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TichLuy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemDat)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaMon }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaMon }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaMon })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenMon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TichLuy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemDat)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaMon }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaMon }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaMon })
+            </td>
+        </tr>
+    }
 
 </table>

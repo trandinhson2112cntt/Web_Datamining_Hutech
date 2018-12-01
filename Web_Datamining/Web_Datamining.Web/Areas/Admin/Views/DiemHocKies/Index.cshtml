@@ -6,7 +6,7 @@
 }
 
 <h2>Điểm Học Kì</h2>
-
+@Html.Partial("~/Areas/Admin/Views/ImportExcel/_ImportDiem.cshtml")
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -33,32 +33,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocKy.NamHoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SinhVien.CoVanHocTap)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoTCDK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoTCD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoTCTL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiemTBTLHe4)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HocKy.NamHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SinhVien.CoVanHocTap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoTCDK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoTCD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoTCTL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemTBTLHe4)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
 </table>

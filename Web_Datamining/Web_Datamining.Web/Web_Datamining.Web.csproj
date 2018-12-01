@@ -407,6 +407,11 @@
     <Content Include="Areas\Admin\Views\DSNguyenVongs\Details.cshtml" />
     <Content Include="Areas\Admin\Views\DSNguyenVongs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DSNguyenVongs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\_ImportHoSoXetTuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\_ImportDiemXetTuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\_ImportDiemChiTietHocKy.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\_ImportMonHoc.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\_ImportDiem.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -439,7 +444,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ImportExcel\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\_ImportSinhVien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
