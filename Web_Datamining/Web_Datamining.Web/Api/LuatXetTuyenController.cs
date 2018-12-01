@@ -53,16 +53,37 @@ namespace Web_Datamining.Web.Api
 
         #endregion Api lấy sử dụng luật
 
-        #region Api tìm kiếm luật xét tuyển
+        #region Api tìm kiếm luật xét tuyển (Loai+keyword+diemtong)
 
         [Route("findrules")]
         [HttpGet]
-        public HttpResponseMessage FindRules(HttpRequestMessage request, int idLoaiLuat,string keyword)
+        public HttpResponseMessage FindRules(HttpRequestMessage request, int idLoaiLuat,string keyword,string dt)
         {
             return CreateHttpResponse(request, () =>
             {
                 int totalRow = 0;
-                var model = _luatService.GetAll(idLoaiLuat,keyword);
+                var model = _luatService.GetAll(idLoaiLuat,keyword,dt);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.X);
+
+                var responseData = Mapper.Map<IEnumerable<Luat>, List<LuatViewModel>>(query);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        #endregion Api tìm kiếm luật xét tuyển
+        #region Api tìm kiếm luật xét tuyển (Loai+keyword)
+
+        [Route("findrules1")]
+        [HttpGet]
+        public HttpResponseMessage FindRules1(HttpRequestMessage request, int idLoaiLuat, string keyword)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var model = _luatService.GetAll(idLoaiLuat, keyword);
                 totalRow = model.Count();
                 var query = model.OrderByDescending(x => x.X);
 
@@ -109,12 +130,12 @@ namespace Web_Datamining.Web.Api
                                 select new
                                 {
                                     ds.NganhTheoBo.TeNganh,
-                                    TongDiem = (ds.DiemTong < 30) ? (ds.DiemTong > 27) ? "[27..30]"
-                                     : (ds.DiemTong > 24) ? "[24..27]"
-                                    : (ds.DiemTong > 21) ? "[21..24]"
-                                    : (ds.DiemTong > 18) ? "[18..21]"
-                                    : (ds.DiemTong > 15) ? "[15..18]"
-                                    : "[0..15]" : ""
+                                    TongDiem = (ds.DiemTong < 30) ? (ds.DiemTong > 27) ? "[28,29,30]"
+                                     : (ds.DiemTong > 24) ? "[25,26,27]"
+                                    : (ds.DiemTong > 21) ? "[22,23,24]"
+                                    : (ds.DiemTong > 18) ? "[19,20,21]"
+                                    : (ds.DiemTong > 15) ? "[16,17,18]"
+                                    : "[0..12,13,14,15]" : ""
                                 }).ToList();
             string result = "";
             foreach (var item in dataListView)
@@ -200,12 +221,12 @@ namespace Web_Datamining.Web.Api
                                 select new
                                 {
                                     ds.NganhTheoBo.TeNganh,
-                                    TongDiem = (ds.DiemTong < 30) ? (ds.DiemTong > 27) ? "[27..30]"
-                                     : (ds.DiemTong > 24) ? "[24..27]"
-                                    : (ds.DiemTong > 21) ? "[21..24]"
-                                    : (ds.DiemTong > 18) ? "[18..21]"
-                                    : (ds.DiemTong > 15) ? "[15..18]"
-                                    : "[0..15]" : ""
+                                    TongDiem = (ds.DiemTong < 30) ? (ds.DiemTong > 27) ? "[28,29,30]"
+                                     : (ds.DiemTong > 24) ? "[25,26,27]"
+                                    : (ds.DiemTong > 21) ? "[22,23,24]"
+                                    : (ds.DiemTong > 18) ? "[19,20,21]"
+                                    : (ds.DiemTong > 15) ? "[16,17,18]"
+                                    : "[0..12,13,14,15]" : ""
                                 }).ToList();
             string result = "";
             foreach (var item in dataListView)

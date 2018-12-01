@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Web_Datamining.Model.Models;
 using Web_Datamining.Models;
 
 namespace Web_Datamining.Data
@@ -32,6 +33,7 @@ namespace Web_Datamining.Data
         public DbSet<TruongTHPT> TruongTHPTs { get; set; }
         public DbSet<Error> Errors { get; set; }
         public DbSet<ChuongTrinhDaoTao> ChuongTrinhDaoTaos { get; set; }
+        public DbSet<KhaoSat> KhaoSat { get; set; }
 
         public static WebDbContext Create()
         {

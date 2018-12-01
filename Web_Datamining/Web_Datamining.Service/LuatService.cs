@@ -22,6 +22,7 @@ namespace Web_Datamining.Service
 
         IEnumerable<Luat> GetAll(int idLoaiLuat);
 
+        IEnumerable<Luat> GetAll(int idLoaiLuat, string keyword,string dt);
         IEnumerable<Luat> GetAll(int idLoaiLuat, string keyword);
 
         Luat GetById(int id);
@@ -72,6 +73,18 @@ namespace Web_Datamining.Service
             }
         }
 
+        public IEnumerable<Luat> GetAll(int idLoaiLuat, string keyword,string dt)
+        {
+            var listLuat = _LuatRepository.GetMulti(x => x.LuatId == idLoaiLuat && (x.X.Contains(keyword) || x.Y.Contains(keyword)) && (x.X.Contains(dt) || x.Y.Contains(dt)));
+            if (listLuat == null)
+            {
+                return _LuatRepository.GetAll();
+            }
+            else
+            {
+                return listLuat;
+            }
+        }
         public IEnumerable<Luat> GetAll(int idLoaiLuat, string keyword)
         {
             var listLuat = _LuatRepository.GetMulti(x => x.LuatId == idLoaiLuat && (x.X.Contains(keyword) || x.Y.Contains(keyword)));
@@ -84,6 +97,11 @@ namespace Web_Datamining.Service
                 return listLuat;
             }
         }
+
+        //public IEnumerable<Luat> GetAll(int idLoaiLuat, string keyword)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public Luat GetById(int id)
         {

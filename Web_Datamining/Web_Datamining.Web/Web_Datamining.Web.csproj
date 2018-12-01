@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\DataController.cs" />
+    <Compile Include="Api\KhaoSatController.cs" />
     <Compile Include="Api\LuatHocTapController.cs" />
     <Compile Include="Api\LuatPhongDaoTaoController.cs" />
     <Compile Include="Api\LuatXetTuyenController.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoSoXetTuyensController.cs" />
     <Compile Include="Areas\Admin\Controllers\HuyensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KhaoSatsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoaHocsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoasController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopsController.cs" />
@@ -406,6 +408,11 @@
     <Content Include="Areas\Admin\Views\DSNguyenVongs\Details.cshtml" />
     <Content Include="Areas\Admin\Views\DSNguyenVongs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DSNguyenVongs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KhaoSats\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\KhaoSats\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\KhaoSats\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\KhaoSats\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\KhaoSats\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
