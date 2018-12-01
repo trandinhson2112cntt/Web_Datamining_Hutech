@@ -6,41 +6,42 @@
 }
 
 <h2>DS Sinh Viên</h2>
-
+@Html.Partial("~/Areas/Admin/Views/ImportExcel/Index.cshtml")
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HoSoXetTuyen.CMDN)
+            @Html.DisplayNameFor(model => model.MSSV)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lop.MaChuyenNganh)
+            @Html.DisplayNameFor(model => model.MaHoSo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CoVanHocTap)
+            @Html.DisplayNameFor(model => model.ID_Lop)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoSoXetTuyen.CMDN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lop.MaChuyenNganh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CoVanHocTap)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MSSV }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MSSV }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MSSV })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MSSV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHoSo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Lop)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MSSV }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MSSV }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MSSV })
+            </td>
+        </tr>
+    }
 
 </table>
