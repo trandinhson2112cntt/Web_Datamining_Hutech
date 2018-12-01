@@ -108,6 +108,7 @@
     <Compile Include="Repositories\HocKyRepository.cs" />
     <Compile Include="Repositories\HoSoXetTuyenRepository.cs" />
     <Compile Include="Repositories\HuyenRepository.cs" />
+    <Compile Include="Repositories\KhaoSatRepository.cs" />
     <Compile Include="Repositories\KhoaHocRepository.cs" />
     <Compile Include="Repositories\KhoaRepository.cs" />
     <Compile Include="Repositories\LopRepository.cs" />

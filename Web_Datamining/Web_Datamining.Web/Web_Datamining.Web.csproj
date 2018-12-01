@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\DataController.cs" />
+    <Compile Include="Api\KhaoSatController.cs" />
     <Compile Include="Api\LuatHocTapController.cs" />
     <Compile Include="Api\LuatPhongDaoTaoController.cs" />
     <Compile Include="Api\LuatXetTuyenController.cs" />
