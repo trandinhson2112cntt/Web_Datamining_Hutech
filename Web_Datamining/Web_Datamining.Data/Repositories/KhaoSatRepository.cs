@@ -11,7 +11,10 @@ namespace Web_Datamining.Data.Repositories
 {
     public interface IKhaoSatRepository : IRepository<KhaoSat>
     {
+<<<<<<< HEAD
         
+=======
+>>>>>>> parent of 2fd01a8... Revert "cap nhat bang Khao sao va Api Them Khao Sat"
     }
 
     public class KhaoSatRepository : RepositoryBase<KhaoSat>, IKhaoSatRepository
@@ -19,7 +22,10 @@ namespace Web_Datamining.Data.Repositories
         public KhaoSatRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
+<<<<<<< HEAD
 
        
+=======
+>>>>>>> parent of 2fd01a8... Revert "cap nhat bang Khao sao va Api Them Khao Sat"
     }
 }

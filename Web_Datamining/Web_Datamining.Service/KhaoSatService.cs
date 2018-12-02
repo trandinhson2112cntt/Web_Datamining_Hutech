@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using Web_Datamining.Data.Infrastructure;
 using Web_Datamining.Data.Repositories;
 using Web_Datamining.Model.Models;
@@ -75,5 +76,12 @@ namespace Web_Datamining.Service
         {
             _KhaoSatRepository.Update(KhaoSat);
         }
+=======
+
+namespace Web_Datamining.Service
+{
+    interface KhaoSatService
+    {
+>>>>>>> parent of 2fd01a8... Revert "cap nhat bang Khao sao va Api Them Khao Sat"
     }
 }

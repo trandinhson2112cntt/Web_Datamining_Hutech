@@ -25,8 +25,16 @@ namespace Web_Datamining.Model.Models
 
         public decimal? DiemMon1 { get; set; }
 
+<<<<<<< HEAD
         public decimal? DiemMon2 { get; set; }
 
         public decimal? DiemMon3 { get; set; }
     }
 }
+=======
+        public decimal? DiemMon2{ get; set; }
+
+        public decimal? DiemMon3 { get; set; }
+    }
+}
+>>>>>>> parent of 2fd01a8... Revert "cap nhat bang Khao sao va Api Them Khao Sat"

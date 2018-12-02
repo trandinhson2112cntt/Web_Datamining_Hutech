@@ -10,6 +10,10 @@ using Web_Datamining.Models;
 using Web_Datamining.Service;
 using Web_Datamining.Web.Infrastructure.Core;
 using Web_Datamining.Web.Models;
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 2fd01a8... Revert "cap nhat bang Khao sao va Api Them Khao Sat"
 namespace Web_Datamining.Web.Api
 {
     [RoutePrefix("api/Khaosat")]
