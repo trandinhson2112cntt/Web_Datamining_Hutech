@@ -228,13 +228,9 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoSoXetTuyensController.cs" />
     <Compile Include="Areas\Admin\Controllers\HuyensController.cs" />
-<<<<<<< HEAD
-
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs" />
 
-=======
     <Compile Include="Areas\Admin\Controllers\KhaoSatsController.cs" />
->>>>>>> parent of 2fd01a8... Revert "cap nhat bang Khao sao va Api Them Khao Sat"
     <Compile Include="Areas\Admin\Controllers\KhoaHocsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoasController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopsController.cs" />
