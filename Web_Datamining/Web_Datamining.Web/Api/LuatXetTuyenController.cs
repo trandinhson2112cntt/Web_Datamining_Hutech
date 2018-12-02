@@ -59,6 +59,9 @@ namespace Web_Datamining.Web.Api
         [HttpGet]
         public HttpResponseMessage FindRules(HttpRequestMessage request, int idLoaiLuat,string keyword,string dt)
         {
+            //float diemtong = float.Parse(dt);
+            //diemtong = (float)Math.Round(diemtong, 0);
+            //dt = diemtong.ToString();
             return CreateHttpResponse(request, () =>
             {
                 int totalRow = 0;
