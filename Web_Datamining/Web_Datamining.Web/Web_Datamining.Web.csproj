@@ -228,7 +228,10 @@
     <Compile Include="Areas\Admin\Controllers\HoSoXetTuyensController.cs" />
     <Compile Include="Areas\Admin\Controllers\HuyensController.cs" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs" />
+=======
+>>>>>>> parent of 2ddfbca... cap nhat bang Khao sao va Api Them Khao Sat
 =======
 >>>>>>> parent of 2ddfbca... cap nhat bang Khao sao va Api Them Khao Sat
     <Compile Include="Areas\Admin\Controllers\KhoaHocsController.cs" />
