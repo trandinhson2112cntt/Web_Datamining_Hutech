@@ -210,7 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\DataController.cs" />
-    <Compile Include="Api\KhaoSatController.cs" />
     <Compile Include="Api\LuatHocTapController.cs" />
     <Compile Include="Api\LuatPhongDaoTaoController.cs" />
     <Compile Include="Api\LuatXetTuyenController.cs" />
@@ -228,7 +227,10 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoSoXetTuyensController.cs" />
     <Compile Include="Areas\Admin\Controllers\HuyensController.cs" />
+<<<<<<< HEAD
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs" />
+=======
+>>>>>>> parent of 2ddfbca... cap nhat bang Khao sao va Api Them Khao Sat
     <Compile Include="Areas\Admin\Controllers\KhoaHocsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoasController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopsController.cs" />

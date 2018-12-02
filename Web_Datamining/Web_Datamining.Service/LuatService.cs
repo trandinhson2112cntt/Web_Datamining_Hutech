@@ -35,6 +35,7 @@ namespace Web_Datamining.Service
 
         public LuatService(ILuatRepository LuatRepository, IUnitOfWork unitOfWork)
         {
+            ILuatRepository luatRepository = LuatRepository;
             this._LuatRepository = LuatRepository;
             this._unitOfWork = unitOfWork;
         }
