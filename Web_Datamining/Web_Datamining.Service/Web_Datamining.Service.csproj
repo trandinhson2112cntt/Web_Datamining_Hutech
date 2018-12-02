@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorService.cs" />
+    <Compile Include="KhaoSatService.cs" />
     <Compile Include="Khoa.cs" />
     <Compile Include="LuatService.cs" />
     <Compile Include="MonHoc.cs" />

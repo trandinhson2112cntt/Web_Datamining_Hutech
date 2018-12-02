@@ -1,0 +1,65 @@
+﻿@model Web_Datamining.Model.Models.KhaoSat
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>KhaoSat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CMND)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CMND)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Khoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Khoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemMon1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemMon1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemMon2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemMon2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemMon3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemMon3)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
