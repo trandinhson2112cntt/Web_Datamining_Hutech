@@ -139,7 +139,7 @@ namespace Web_Datamining.Web.Api
             });
         }
 
-        #endregion Api tạo danh sach luật: Nhập học + Đậu => Khu vực
+        #endregion 
 
         #region Hàm lấy ra danh sách các luật: Nhập học + Đậu => Khu vực
 
@@ -151,9 +151,13 @@ namespace Web_Datamining.Web.Api
             var dataListView = ((
     from HoSoXetTuyens in dbContext.HoSoXetTuyens
     from Tinhs in dbContext.Tinhs
+    from DSNguyenVongs in dbContext.DSNguyenVongs
+    from ChuyenNganh in dbContext.ChuyenNganhs
     where
       HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh &&
       HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
+      HoSoXetTuyens.MaHoSo == DSNguyenVongs.MaHoSo && //Thinh Add for new rules: Dia diem => Nganh Hoc
+      DSNguyenVongs.MaNganh == ChuyenNganh.MaChuyenNganh && //Thinh Add for new rules: Dia diem => Nganh Hoc
         (from SinhViens in dbContext.SinhViens
          select new
          {
@@ -164,28 +168,29 @@ namespace Web_Datamining.Web.Api
         HoSoXetTuyens.CMDN,
         TinhTrangTrungTuyen = (int?)HoSoXetTuyens.TinhTrangTrungTuyen,
         Tinhs.TenTinh,
-        TinhTrang = "Nhập học"
+        TinhTrang = "Nhập học",
+        TenNganh = ChuyenNganh.TenChuyenNganh//Thinh ADd for new rule: Dia diem => Nganh Hoc
     }
-).Union
-(
-    from HoSoXetTuyens in dbContext.HoSoXetTuyens
-    from Tinhs in dbContext.Tinhs
-    where
-      HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh &&
-      HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
-      !
-        (from SinhViens in dbContext.SinhViens
-         select new
-         {
-             SinhViens.MaHoSo
-         }).Contains(new { MaHoSo = HoSoXetTuyens.MaHoSo })
-    select new
-    {
-        CMDN = HoSoXetTuyens.CMDN,
-        TinhTrangTrungTuyen = (int?)HoSoXetTuyens.TinhTrangTrungTuyen,
-        TenTinh = Tinhs.TenTinh,
-        TinhTrang = "Không nhập học"
-    }
+//).Union
+//(
+//    from HoSoXetTuyens in dbContext.HoSoXetTuyens
+//    from Tinhs in dbContext.Tinhs
+//    where
+//      HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh &&
+//      HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
+//      !
+//        (from SinhViens in dbContext.SinhViens
+//         select new
+//         {
+//             SinhViens.MaHoSo
+//         }).Contains(new { MaHoSo = HoSoXetTuyens.MaHoSo })
+//    select new
+//    {
+//        CMDN = HoSoXetTuyens.CMDN,
+//        TinhTrangTrungTuyen = (int?)HoSoXetTuyens.TinhTrangTrungTuyen,
+//        TenTinh = Tinhs.TenTinh,
+//        TinhTrang = "Không nhập học"
+//    }
 )).ToList();
             string result = "";
             foreach (var item in dataListView)
@@ -193,7 +198,7 @@ namespace Web_Datamining.Web.Api
                 db.Add(new clssItemSet()
                 {
                     item.TenTinh,
-                    item.TinhTrang
+                    item.TenNganh
                 });
             }
 
@@ -205,7 +210,7 @@ namespace Web_Datamining.Web.Api
             return allRules;
         }
 
-        #endregion Hàm lấy ra danh sách các luật: Nhập học + Đậu => Khu vực
+        #endregion
 
 
         //********************************************
