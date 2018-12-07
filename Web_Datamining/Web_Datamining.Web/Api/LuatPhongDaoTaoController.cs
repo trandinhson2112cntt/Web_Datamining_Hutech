@@ -152,24 +152,25 @@ namespace Web_Datamining.Web.Api
     from HoSoXetTuyens in dbContext.HoSoXetTuyens
     from Tinhs in dbContext.Tinhs
     from DSNguyenVongs in dbContext.DSNguyenVongs
-    from ChuyenNganh in dbContext.ChuyenNganhs
+    from NganhTheoBo in dbContext.NganhTheoBos
     where
       HoSoXetTuyens.TruongTHPT.MaTinh == Tinhs.MaTinh &&
-      HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
+      //HoSoXetTuyens.TinhTrangTrungTuyen == 1 &&
+      //thinh update API 
       HoSoXetTuyens.MaHoSo == DSNguyenVongs.MaHoSo && //Thinh Add for new rules: Dia diem => Nganh Hoc
-      DSNguyenVongs.MaNganh == ChuyenNganh.MaChuyenNganh && //Thinh Add for new rules: Dia diem => Nganh Hoc
-        (from SinhViens in dbContext.SinhViens
-         select new
-         {
-             SinhViens.MaHoSo
-         }).Contains(new { MaHoSo = HoSoXetTuyens.MaHoSo })
+      DSNguyenVongs.MaNganh == NganhTheoBo.MaNganh  //Thinh Add for new rules: Dia diem => Nganh Hoc
+        //(from SinhViens in dbContext.SinhViens
+        // select new
+        // {
+        //     SinhViens.MaHoSo
+        // }).Contains(new { MaHoSo = HoSoXetTuyens.MaHoSo })
     select new
     {
         HoSoXetTuyens.CMDN,
         TinhTrangTrungTuyen = (int?)HoSoXetTuyens.TinhTrangTrungTuyen,
         Tinhs.TenTinh,
         TinhTrang = "Nhập học",
-        TenNganh = ChuyenNganh.TenChuyenNganh//Thinh ADd for new rule: Dia diem => Nganh Hoc
+        TenNganh = NganhTheoBo.TeNganh//Thinh ADd for new rule: Dia diem => Nganh Hoc
     }
 //).Union
 //(
